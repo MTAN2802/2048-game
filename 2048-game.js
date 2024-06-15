@@ -33,7 +33,7 @@ function initiateGame(){
         for (i=0; i < arr.length; i++){
             if (randomNo == i){
                 arr[i].style.backgroundColor = "lightblue";
-                arr[i].innerHTML = '2';
+                arr[i].innerHTML = '<p>2</p>';
             }
         }
     }
