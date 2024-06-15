@@ -67,6 +67,51 @@ div p{
     font-size: 48px;
 }
 
+@media only screen and (max-width: 1440px){
+    .buttons{
+        margin: 1em 25%;
+    }
+    .gamegrid{
+        margin: 0 25%;
+    }
+}
+
+@media only screen and (max-width: 1250px){
+    .buttons{
+        margin: 1em 20%;
+    }
+    .gamegrid{
+        margin: 0 20%;
+    }
+}
+
+@media only screen and (max-width: 1040px){
+    .buttons{
+        margin: 1em 15%;
+    }
+    .gamegrid{
+        margin: 0 15%;
+    }
+}
+
+@media only screen and (max-width: 900px){
+    .buttons{
+        margin: 1em 10%;
+    }
+    .gamegrid{
+        margin: 0 10%;
+    }
+}
+
+@media only screen and (max-width: 780px){
+    .buttons{
+        margin: 1em 5%;
+    }
+    .gamegrid{
+        margin: 0 5%;
+    }
+}
+
 #thirteen, #fourteen, #fifteen, #sixteen{
     border-bottom: solid black;
 }
