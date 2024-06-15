@@ -65,7 +65,7 @@ const tiles = [
 //Functions for the buttons
 function isThereAGame(){
     for (i=0; i < arr.length; i++){
-        if (arr[i].style.backgroundColor == "lightblue") {
+        if (arr[i].innerHTML.indexOf("2") != -1) {
             return true}
     }
 }
@@ -78,8 +78,8 @@ function initiateGame(){
     else{
         for (i=0; i < arr.length; i++){
             if (randomNo == i){
-                arr[i].style.backgroundColor = "lightblue";
-                arr[i].innerHTML = '<p>2</p>';
+                arr[i].style.backgroundColor = `${tiles[0].hex}`;
+                arr[i].innerHTML = `<p>${tiles[0].number}</p>`;
             }
         }
     }
