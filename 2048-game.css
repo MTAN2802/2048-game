@@ -16,11 +16,33 @@ h1{
     color: white;
 }
 
+/*Buttons*/
+.buttons{
+    display: flex;
+    margin: 1em 30%;
+    justify-content: space-evenly;
+}
+
+.buttons button{
+    padding: 1em;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.buttons button:hover{
+    background-color: grey;
+    color: white;
+}
+
+.buttons button:active{
+    background-color:darkgreen;
+}
 
 /*Game section*/
 .gamegrid{
     display: grid;
-    margin: 0 20%;
+    margin: 0 30%;
     grid-template-areas: 
     "one two three four"
     "five six seven eight"
@@ -29,12 +51,20 @@ h1{
 }
 
 .gamegrid div{
+    display: flex;
     border: solid black;
     border-bottom: none;
     border-right: none;
     min-height: 150px;
     min-width: 150px;
     background-color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+div p{
+    font-weight: bold;
+    font-size: 48px;
 }
 
 #thirteen, #fourteen, #fifteen, #sixteen{
