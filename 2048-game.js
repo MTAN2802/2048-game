@@ -63,7 +63,7 @@ const tiles = [
 ]
 
 //Functions for the buttons
-function isThereAGame(){
+function isThereAGame(){   
     for (i=0; i < arr.length; i++){
         if (arr[i].innerHTML.indexOf("2") != -1) {
             return true}
@@ -71,6 +71,7 @@ function isThereAGame(){
 }
 
 function initiateGame(){
+    //let test = 0;
     let randomNo = Math.floor(Math.random() * 16);
     if (isThereAGame() == true){
         alert('There is already an active game!')
@@ -96,3 +97,47 @@ const startButton = document.getElementById('start');
 startButton.addEventListener("click", initiateGame);
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener("click", clearGame);
+
+//Functions for the game
+function moveRight(event){
+    if (event.key == "d"){
+        let a = 0;
+        //For all the tiles in the first row
+        while(a < 3){
+            //If the current tile has a value of "2"
+            if (arr[a].innerHTML.indexOf("2") != -1){
+                arr[a].innerHTML = "";
+                arr[a].style.backgroundColor = "";
+                a++
+                //If next tile is empty (min: 2nd tile)
+                if(arr[a].style.backgroundColor == ""){
+                    a++
+                    //If next tile is empty (min: 3rd tile)
+                    if(arr[a].style.backgroundColor == "" && a < 4){
+                        a++;
+                        if(arr[a].style.backgroundColor == "" && a < 4){
+                            arr[a].innerHTML = `<p>${tiles[0].number}</p>`
+                            arr[a].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                        else{
+                            arr[a-1].innerHTML = `<p>${tiles[0].number}</p>`
+                            arr[a-1].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                    }
+                    else{
+                        arr[a-1].innerHTML = `<p>${tiles[0].number}</p>`
+                        arr[a-1].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                    }
+                }
+        a++;
+        }
+    }
+        //If the NEXT tile has a value of "2"
+        /*if (arr[a].innerHTML.indexOf("2") != -1){
+            arr[a].innerHTML = `${tiles[1].number}`;
+            arr[a].style.backgroundColor = `${tiles[1].hex}`;
+        }*/
+    }
+
+document.addEventListener("keydown", moveRight)
