@@ -16,8 +16,6 @@ const fifteen = document.getElementById("fifteen");
 const sixteen = document.getElementById("sixteen");
 const arr = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen];
 
-let randomNo = Math.floor(Math.random() * 16);
-
 const tiles = [
     {number: 2,
      colour: "lavender",
@@ -74,6 +72,7 @@ function isThereAGame(){
 
 function initiateGame(){
     //let test = 0;
+    let randomNo = Math.floor(Math.random() * 16);
     if (isThereAGame() == true){
         alert('There is already an active game!')
     }
@@ -143,7 +142,10 @@ function moveRight(event){
                 }
             a++;
             }
-        
+        let nextSquare = openSquares(arr);
+        let randomNo = Math.floor(Math.random() * nextSquare.length);
+        nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
+        nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
         }
     }
         //If the NEXT tile has a value of "2"
