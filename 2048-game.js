@@ -16,6 +16,8 @@ const fifteen = document.getElementById("fifteen");
 const sixteen = document.getElementById("sixteen");
 const arr = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen];
 
+let randomNo = Math.floor(Math.random() * 16);
+
 const tiles = [
     {number: 2,
      colour: "lavender",
@@ -72,7 +74,6 @@ function isThereAGame(){
 
 function initiateGame(){
     //let test = 0;
-    let randomNo = Math.floor(Math.random() * 16);
     if (isThereAGame() == true){
         alert('There is already an active game!')
     }
@@ -99,6 +100,16 @@ const resetButton = document.getElementById('reset');
 resetButton.addEventListener("click", clearGame);
 
 //Functions for the game
+function closedSquares() {
+    let unavailable = [];
+    for (i = 0; i < arr.length; i++){
+        if (arr[i].style.backgroundColor != ""){
+            unavailable.push(i);
+        }
+    }
+    return unavailable;
+}
+
 function moveRight(event){
     if (event.key == "d"){
         let a = 0;
@@ -132,12 +143,16 @@ function moveRight(event){
                 }
         a++;
         }
+        let i = randomNo;
+        if (arr[i].style.backgroundColor != ''){
+
+        }
+        }
     }
         //If the NEXT tile has a value of "2"
         /*if (arr[a].innerHTML.indexOf("2") != -1){
             arr[a].innerHTML = `${tiles[1].number}`;
             arr[a].style.backgroundColor = `${tiles[1].hex}`;
         }*/
-    }
 
 document.addEventListener("keydown", moveRight)
