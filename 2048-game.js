@@ -100,14 +100,14 @@ const resetButton = document.getElementById('reset');
 resetButton.addEventListener("click", clearGame);
 
 //Functions for the game
-function closedSquares() {
-    let unavailable = [];
+function openSquares(arr) {
+    let available = [];
     for (i = 0; i < arr.length; i++){
-        if (arr[i].style.backgroundColor != ""){
-            unavailable.push(i);
+        if (arr[i].style.backgroundColor == ""){
+            available.push(arr[i]);
         }
     }
-    return unavailable;
+    return available;
 }
 
 function moveRight(event){
@@ -141,12 +141,9 @@ function moveRight(event){
                         }
                     }
                 }
-        a++;
-        }
-        let i = randomNo;
-        if (arr[i].style.backgroundColor != ''){
-
-        }
+            a++;
+            }
+        
         }
     }
         //If the NEXT tile has a value of "2"
