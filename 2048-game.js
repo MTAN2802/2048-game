@@ -116,11 +116,11 @@ function moveRight(event){
         while(a < 3){
             //If the current tile has a value of "2"
             if (arr[a].innerHTML.indexOf("2") != -1){
-                arr[a].innerHTML = "";
-                arr[a].style.backgroundColor = "";
                 a++
                 //If next tile is empty (min: 2nd tile)
                 if(arr[a].style.backgroundColor == ""){
+                    arr[a-1].innerHTML = "";
+                    arr[a-1].style.backgroundColor = "";
                     a++
                     //If next tile is empty (min: 3rd tile)
                     if(arr[a].style.backgroundColor == "" && a < 4){
@@ -129,25 +129,37 @@ function moveRight(event){
                             arr[a].innerHTML = `<p>${tiles[0].number}</p>`
                             arr[a].style.backgroundColor = `${tiles[0].hex}`
                         }
+                        else if (arr[a].innerHTML.indexOf("2") != -1){
+                            arr[a].innerHTML = `${tiles[1].number}`;
+                            arr[a].style.backgroundColor = `${tiles[1].hex}`;
+                        }
                         else{
                             arr[a-1].innerHTML = `<p>${tiles[0].number}</p>`
                             arr[a-1].style.backgroundColor = `${tiles[0].hex}`
                         }
+                    }
+                    else if (arr[a].innerHTML.indexOf("2") != -1){
+                        arr[a].innerHTML = `${tiles[1].number}`;
+                        arr[a].style.backgroundColor = `${tiles[1].hex}`;
                     }
                     else{
                         arr[a-1].innerHTML = `<p>${tiles[0].number}</p>`
                         arr[a-1].style.backgroundColor = `${tiles[0].hex}`
                         }
                     }
+                else if (arr[a].innerHTML.indexOf("2") != -1){
+                    arr[a].innerHTML = `${tiles[1].number}`;
+                    arr[a].style.backgroundColor = `${tiles[1].hex}`;
                 }
-            a++;
             }
+            a++;
+        }
         let nextSquare = openSquares(arr);
         let randomNo = Math.floor(Math.random() * nextSquare.length);
         nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
         nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
-        }
     }
+}
         //If the NEXT tile has a value of "2"
         /*if (arr[a].innerHTML.indexOf("2") != -1){
             arr[a].innerHTML = `${tiles[1].number}`;
