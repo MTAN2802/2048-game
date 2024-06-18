@@ -154,7 +154,139 @@ function moveRight(event){
             }
             a++;
         }
-        
+
+        let b = 4;
+
+        while(b < 7 && b >= 4){ //For all the tiles in the second row
+            
+            if (arr[b].innerHTML.indexOf("2") != -1){ //If the current tile has a value of "2"
+                b++
+                
+                if(arr[b].style.backgroundColor == ""){ //If the next tile from target is empty
+                    arr[b-1].innerHTML = "";
+                    arr[b-1].style.backgroundColor = "";
+                    b++
+                    
+                    if(arr[b].style.backgroundColor == "" && b < 7){   //If the next two tiles from target is empty
+                        b++;
+                        if(arr[b].style.backgroundColor == "" && b < 7){    //If the next three tiles from target is empty
+                            arr[b].innerHTML = `<p>${tiles[0].number}</p>`
+                            arr[b].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                        else if (arr[b].innerHTML.indexOf("2") != -1){ //If the next two tiles from target is empty but the last one is "2"
+                            arr[b].innerHTML = `${tiles[1].number}`;
+                            arr[b].style.backgroundColor = `${tiles[1].hex}`;
+                        }
+                        else{  //If the next two tiles from target is empty but a number other than "2" is next
+                            arr[b-1].innerHTML = `<p>${tiles[0].number}</p>`
+                            arr[b-1].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                    }
+                    else if (arr[b].innerHTML.indexOf("2") != -1){ //If the next tile from target is empty but the next one is "2"
+                        arr[b].innerHTML = `${tiles[1].number}`;
+                        arr[b].style.backgroundColor = `${tiles[1].hex}`;
+                    }
+                    else{        //If the next tile from target is empty but a number other than "2" is next
+                        arr[b-1].innerHTML = `<p>${tiles[0].number}</p>`
+                        arr[b-1].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                    }
+                else if (arr[b].innerHTML.indexOf("2") != -1){    //If the next tile from target is "2"
+                    arr[b].innerHTML = `${tiles[1].number}`;
+                    arr[b].style.backgroundColor = `${tiles[1].hex}`;
+                }
+            }
+            b++;
+        }
+
+        let c = 8;
+
+        while(c < 11 && c >= 8){ //For all the tiles in the third row
+            
+            if (arr[c].innerHTML.indexOf("2") != -1){ //If the current tile has a value of "2"
+                c++
+                
+                if(arr[c].style.backgroundColor == ""){ //If the next tile from target is empty
+                    arr[c-1].innerHTML = "";
+                    arr[c-1].style.backgroundColor = "";
+                    c++
+                    
+                    if(arr[c].style.backgroundColor == "" && c < 11){   //If the next two tiles from target is empty
+                        c++;
+                        if(arr[c].style.backgroundColor == "" && c < 11){    //If the next three tiles from target is empty
+                            arr[c].innerHTML = `<p>${tiles[0].number}</p>`
+                            arr[c].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                        else if (arr[c].innerHTML.indexOf("2") != -1){ //If the next two tiles from target is empty but the last one is "2"
+                            arr[c].innerHTML = `${tiles[1].number}`;
+                            arr[c].style.backgroundColor = `${tiles[1].hex}`;
+                        }
+                        else{  //If the next two tiles from target is empty but a number other than "2" is next
+                            arr[c-1].innerHTML = `<p>${tiles[0].number}</p>`
+                            arr[c-1].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                    }
+                    else if (arr[c].innerHTML.indexOf("2") != -1){ //If the next tile from target is empty but the next one is "2"
+                        arr[c].innerHTML = `${tiles[1].number}`;
+                        arr[c].style.backgroundColor = `${tiles[1].hex}`;
+                    }
+                    else{        //If the next tile from target is empty but a number other than "2" is next
+                        arr[c-1].innerHTML = `<p>${tiles[0].number}</p>`
+                        arr[c-1].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                    }
+                else if (arr[c].innerHTML.indexOf("2") != -1){    //If the next tile from target is "2"
+                    arr[c].innerHTML = `${tiles[1].number}`;
+                    arr[c].style.backgroundColor = `${tiles[1].hex}`;
+                }
+            }
+            c++;
+        }
+
+        let d = 12;
+
+        while(d < 15 && d >= 12){ //For all the tiles in the fourth row 
+            
+            if (arr[d].innerHTML.indexOf("2") != -1){ //If the current tile has a value of "2"
+                d++
+                
+                if(arr[d].style.backgroundColor == ""){ //If the next tile from target is empty
+                    arr[d-1].innerHTML = "";
+                    arr[d-1].style.backgroundColor = "";
+                    d++
+                    
+                    if(arr[d].style.backgroundColor == "" && d < 16){   //If the next two tiles from target is empty
+                        d++;
+                        if(arr[d].style.backgroundColor == "" && d < 16){    //If the next three tiles from target is empty
+                            arr[d].innerHTML = `<p>${tiles[0].number}</p>`
+                            arr[d].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                        else if (arr[d].innerHTML.indexOf("2") != -1){ //If the next two tiles from target is empty but the last one is "2"
+                            arr[d].innerHTML = `${tiles[1].number}`;
+                            arr[d].style.backgroundColor = `${tiles[1].hex}`;
+                        }
+                        else{  //If the next two tiles from target is empty but a number other than "2" is next
+                            arr[d-1].innerHTML = `<p>${tiles[0].number}</p>`
+                            arr[d-1].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                    }
+                    else if (arr[d].innerHTML.indexOf("2") != -1){ //If the next tile from target is empty but the next one is "2"
+                        arr[d].innerHTML = `${tiles[1].number}`;
+                        arr[d].style.backgroundColor = `${tiles[1].hex}`;
+                    }
+                    else{        //If the next tile from target is empty but a number other than "2" is next
+                        arr[d-1].innerHTML = `<p>${tiles[0].number}</p>`
+                        arr[d-1].style.backgroundColor = `${tiles[0].hex}`
+                        }
+                    }
+                else if (arr[d].innerHTML.indexOf("2") != -1){    //If the next tile from target is "2"
+                    arr[d].innerHTML = `${tiles[1].number}`;
+                    arr[d].style.backgroundColor = `${tiles[1].hex}`;
+                }
+            }
+            d++;
+        }
+
         let nextSquare = openSquares(arr);
         let randomNo = Math.floor(Math.random() * nextSquare.length);
         nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
