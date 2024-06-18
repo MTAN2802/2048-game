@@ -123,14 +123,14 @@ function moveRight(event){
                     arr[a-1].style.backgroundColor = "";
                     a++
                     
-                    if(arr[a].style.backgroundColor == "" && a < 4){   //If the next two tiles from target is empty
+                    if(arr[a].style.backgroundColor == "" && a < 3){   //If the next two tiles from target is empty
                         a++;
                         if(arr[a].style.backgroundColor == "" && a < 4){    //If the next three tiles from target is empty
                             arr[a].innerHTML = `<p>${tiles[0].number}</p>`
                             arr[a].style.backgroundColor = `${tiles[0].hex}`
                         }
                         else if (arr[a].innerHTML.indexOf("2") != -1){ //If the next two tiles from target is empty but the last one is "2"
-                            arr[a].innerHTML = `${tiles[1].number}`;
+                            arr[a].innerHTML = `<p>${tiles[1].number}</p>`;
                             arr[a].style.backgroundColor = `${tiles[1].hex}`;
                         }
                         else{  //If the next two tiles from target is empty but a number other than "2" is next
@@ -139,7 +139,7 @@ function moveRight(event){
                         }
                     }
                     else if (arr[a].innerHTML.indexOf("2") != -1){ //If the next tile from target is empty but the next one is "2"
-                        arr[a].innerHTML = `${tiles[1].number}`;
+                        arr[a].innerHTML = `<p>${tiles[1].number}</p>`;
                         arr[a].style.backgroundColor = `${tiles[1].hex}`;
                     }
                     else{        //If the next tile from target is empty but a number other than "2" is next
@@ -148,10 +148,11 @@ function moveRight(event){
                         }
                     }
                 else if (arr[a].innerHTML.indexOf("2") != -1){    //If the next tile from target is "2"
-                    arr[a].innerHTML = `${tiles[1].number}`;
+                    arr[a].innerHTML = `<p>${tiles[1].number}</p>`;
                     arr[a].style.backgroundColor = `${tiles[1].hex}`;
                 }
             }
+
             a++;
         }
 
@@ -169,7 +170,7 @@ function moveRight(event){
                     
                     if(arr[b].style.backgroundColor == "" && b < 7){   //If the next two tiles from target is empty
                         b++;
-                        if(arr[b].style.backgroundColor == "" && b < 7){    //If the next three tiles from target is empty
+                        if(arr[b].style.backgroundColor == "" && b < 8){    //If the next three tiles from target is empty
                             arr[b].innerHTML = `<p>${tiles[0].number}</p>`
                             arr[b].style.backgroundColor = `${tiles[0].hex}`
                         }
@@ -183,7 +184,7 @@ function moveRight(event){
                         }
                     }
                     else if (arr[b].innerHTML.indexOf("2") != -1){ //If the next tile from target is empty but the next one is "2"
-                        arr[b].innerHTML = `${tiles[1].number}`;
+                        arr[b].innerHTML = `<p>${tiles[1].number}</p>`;
                         arr[b].style.backgroundColor = `${tiles[1].hex}`;
                     }
                     else{        //If the next tile from target is empty but a number other than "2" is next
@@ -192,7 +193,7 @@ function moveRight(event){
                         }
                     }
                 else if (arr[b].innerHTML.indexOf("2") != -1){    //If the next tile from target is "2"
-                    arr[b].innerHTML = `${tiles[1].number}`;
+                    arr[b].innerHTML = `<p>${tiles[1].number}</p>`;
                     arr[b].style.backgroundColor = `${tiles[1].hex}`;
                 }
             }
@@ -213,12 +214,12 @@ function moveRight(event){
                     
                     if(arr[c].style.backgroundColor == "" && c < 11){   //If the next two tiles from target is empty
                         c++;
-                        if(arr[c].style.backgroundColor == "" && c < 11){    //If the next three tiles from target is empty
+                        if(arr[c].style.backgroundColor == "" && c < 12){    //If the next three tiles from target is empty
                             arr[c].innerHTML = `<p>${tiles[0].number}</p>`
                             arr[c].style.backgroundColor = `${tiles[0].hex}`
                         }
                         else if (arr[c].innerHTML.indexOf("2") != -1){ //If the next two tiles from target is empty but the last one is "2"
-                            arr[c].innerHTML = `${tiles[1].number}`;
+                            arr[c].innerHTML = `<p>${tiles[1].number}</p>`;
                             arr[c].style.backgroundColor = `${tiles[1].hex}`;
                         }
                         else{  //If the next two tiles from target is empty but a number other than "2" is next
@@ -227,7 +228,7 @@ function moveRight(event){
                         }
                     }
                     else if (arr[c].innerHTML.indexOf("2") != -1){ //If the next tile from target is empty but the next one is "2"
-                        arr[c].innerHTML = `${tiles[1].number}`;
+                        arr[c].innerHTML = `<p>${tiles[1].number}</p>`;
                         arr[c].style.backgroundColor = `${tiles[1].hex}`;
                     }
                     else{        //If the next tile from target is empty but a number other than "2" is next
@@ -236,7 +237,7 @@ function moveRight(event){
                         }
                     }
                 else if (arr[c].innerHTML.indexOf("2") != -1){    //If the next tile from target is "2"
-                    arr[c].innerHTML = `${tiles[1].number}`;
+                    arr[c].innerHTML = `<p>${tiles[1].number}</p>`;
                     arr[c].style.backgroundColor = `${tiles[1].hex}`;
                 }
             }
@@ -255,14 +256,14 @@ function moveRight(event){
                     arr[d-1].style.backgroundColor = "";
                     d++
                     
-                    if(arr[d].style.backgroundColor == "" && d < 16){   //If the next two tiles from target is empty
+                    if(arr[d].style.backgroundColor == "" && d < 15){   //If the next two tiles from target is empty
                         d++;
                         if(arr[d].style.backgroundColor == "" && d < 16){    //If the next three tiles from target is empty
                             arr[d].innerHTML = `<p>${tiles[0].number}</p>`
                             arr[d].style.backgroundColor = `${tiles[0].hex}`
                         }
                         else if (arr[d].innerHTML.indexOf("2") != -1){ //If the next two tiles from target is empty but the last one is "2"
-                            arr[d].innerHTML = `${tiles[1].number}`;
+                            arr[d].innerHTML = `<p>${tiles[1].number}</p>`;
                             arr[d].style.backgroundColor = `${tiles[1].hex}`;
                         }
                         else{  //If the next two tiles from target is empty but a number other than "2" is next
@@ -271,7 +272,7 @@ function moveRight(event){
                         }
                     }
                     else if (arr[d].innerHTML.indexOf("2") != -1){ //If the next tile from target is empty but the next one is "2"
-                        arr[d].innerHTML = `${tiles[1].number}`;
+                        arr[d].innerHTML = `<p>${tiles[1].number}</p>`;
                         arr[d].style.backgroundColor = `${tiles[1].hex}`;
                     }
                     else{        //If the next tile from target is empty but a number other than "2" is next
@@ -280,7 +281,7 @@ function moveRight(event){
                         }
                     }
                 else if (arr[d].innerHTML.indexOf("2") != -1){    //If the next tile from target is "2"
-                    arr[d].innerHTML = `${tiles[1].number}`;
+                    arr[d].innerHTML = `<p>${tiles[1].number}</p>`;
                     arr[d].style.backgroundColor = `${tiles[1].hex}`;
                 }
             }
