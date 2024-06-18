@@ -112,58 +112,54 @@ function openSquares(arr) {
 function moveRight(event){
     if (event.key == "d"){
         let a = 0;
-        //For all the tiles in the first row
-        while(a < 3){
-            //If the current tile has a value of "2"
-            if (arr[a].innerHTML.indexOf("2") != -1){
+        
+        while(a < 3){ //For all the tiles in the first row
+            
+            if (arr[a].innerHTML.indexOf("2") != -1){ //If the current tile has a value of "2"
                 a++
-                //If next tile is empty (min: 2nd tile)
-                if(arr[a].style.backgroundColor == ""){
+                
+                if(arr[a].style.backgroundColor == ""){ //If the next tile from target is empty
                     arr[a-1].innerHTML = "";
                     arr[a-1].style.backgroundColor = "";
                     a++
-                    //If next tile is empty (min: 3rd tile)
-                    if(arr[a].style.backgroundColor == "" && a < 4){
+                    
+                    if(arr[a].style.backgroundColor == "" && a < 4){   //If the next two tiles from target is empty
                         a++;
-                        if(arr[a].style.backgroundColor == "" && a < 4){
+                        if(arr[a].style.backgroundColor == "" && a < 4){    //If the next three tiles from target is empty
                             arr[a].innerHTML = `<p>${tiles[0].number}</p>`
                             arr[a].style.backgroundColor = `${tiles[0].hex}`
                         }
-                        else if (arr[a].innerHTML.indexOf("2") != -1){
+                        else if (arr[a].innerHTML.indexOf("2") != -1){ //If the next two tiles from target is empty but the last one is "2"
                             arr[a].innerHTML = `${tiles[1].number}`;
                             arr[a].style.backgroundColor = `${tiles[1].hex}`;
                         }
-                        else{
+                        else{  //If the next two tiles from target is empty but a number other than "2" is next
                             arr[a-1].innerHTML = `<p>${tiles[0].number}</p>`
                             arr[a-1].style.backgroundColor = `${tiles[0].hex}`
                         }
                     }
-                    else if (arr[a].innerHTML.indexOf("2") != -1){
+                    else if (arr[a].innerHTML.indexOf("2") != -1){ //If the next tile from target is empty but the next one is "2"
                         arr[a].innerHTML = `${tiles[1].number}`;
                         arr[a].style.backgroundColor = `${tiles[1].hex}`;
                     }
-                    else{
+                    else{        //If the next tile from target is empty but a number other than "2" is next
                         arr[a-1].innerHTML = `<p>${tiles[0].number}</p>`
                         arr[a-1].style.backgroundColor = `${tiles[0].hex}`
                         }
                     }
-                else if (arr[a].innerHTML.indexOf("2") != -1){
+                else if (arr[a].innerHTML.indexOf("2") != -1){    //If the next tile from target is "2"
                     arr[a].innerHTML = `${tiles[1].number}`;
                     arr[a].style.backgroundColor = `${tiles[1].hex}`;
                 }
             }
             a++;
         }
+        
         let nextSquare = openSquares(arr);
         let randomNo = Math.floor(Math.random() * nextSquare.length);
         nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
         nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
     }
 }
-        //If the NEXT tile has a value of "2"
-        /*if (arr[a].innerHTML.indexOf("2") != -1){
-            arr[a].innerHTML = `${tiles[1].number}`;
-            arr[a].style.backgroundColor = `${tiles[1].hex}`;
-        }*/
 
 document.addEventListener("keydown", moveRight)
