@@ -363,14 +363,15 @@ function moveRight(event){
             shiftRight(9, "<p>1024</p>");
             shiftRight(10,  "<p>2048</p>");           
 
-            let nextSquare = openSquares(arr);
-            let randomNo = Math.floor(Math.random() * nextSquare.length);
-            nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
-            nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+            if(arr[3].innerHTML == "" || arr[7].innerHTML == "" || arr[11].innerHTML == "" || arr[15].innerHTML == ""){
+                let nextSquare = openSquares(arr);
+                let randomNo = Math.floor(Math.random() * nextSquare.length);
+                nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
+                nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
         }
     }
 }
-
+}
 //Function to move left
 function shiftLeft(x, y){
     let a = 3;
@@ -626,10 +627,13 @@ function moveLeft(event){
             shiftLeft(9, "<p>1024</p>");
             shiftLeft(10, "<p>2048</p>");         
 
-            let nextSquare = openSquares(arr);
-            let randomNo = Math.floor(Math.random() * nextSquare.length);
-            nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
-            nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+            if(arr[0].innerHTML == "" || arr[4].innerHTML == "" || arr[8].innerHTML == "" || arr[12].innerHTML == ""){
+                let nextSquare = openSquares(arr);
+                let randomNo = Math.floor(Math.random() * nextSquare.length);
+                nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
+                nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+            }
+            
         }
     }
 }
@@ -889,10 +893,13 @@ function moveDown(event){
             shiftDown(9, "<p>1024</p>");
             shiftDown(10,  "<p>2048</p>");         
 
-            let nextSquare = openSquares(arr);
-            let randomNo = Math.floor(Math.random() * nextSquare.length);
-            nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
-            nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+            if(arr[12].innerHTML == "" || arr[13].innerHTML == "" || arr[14].innerHTML == "" || arr[15].innerHTML == ""){
+                let nextSquare = openSquares(arr);
+                let randomNo = Math.floor(Math.random() * nextSquare.length);
+                nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
+                nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+            }
+            
         }
     }
 }
@@ -1152,10 +1159,12 @@ function moveUp(event){
             shiftUp(9, "<p>1024</p>");
             shiftUp(10,  "<p>2048</p>");  
 
-            let nextSquare = openSquares(arr);
-            let randomNo = Math.floor(Math.random() * nextSquare.length);
-            nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
-            nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+            if(arr[0].innerHTML == "" || arr[1].innerHTML == "" || arr[2].innerHTML == "" || arr[3].innerHTML == ""){
+                let nextSquare = openSquares(arr);
+                let randomNo = Math.floor(Math.random() * nextSquare.length);
+                nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
+                nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+            }
         }
     }
 }
