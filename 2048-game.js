@@ -108,6 +108,92 @@ function openSquares(arr) {
     return available;
 }
 
+function canItMoveRight(){
+    for (i = 0; i < arr.length; i++){
+        if(i == 0 || i == 4 || i == 8 || i == 12){
+            if (arr[i + 3].style.backgroundColor == "" || arr[i + 3].innerHTML == arr[i].innerHTML || 
+                arr[i + 2].style.backgroundColor == "" || arr[i + 2].innerHTML == arr[i].innerHTML ||
+                arr[i + 1].style.backgroundColor == "" || arr[i + 1].innerHTML == arr[i].innerHTML){
+                    return true;
+                    }  
+            }
+            if (i == 1 || i == 5 || i == 9 || i == 13){
+                if (arr[i + 2].style.backgroundColor == "" || arr[i + 2].innerHTML == arr[i].innerHTML ||
+                    arr[i + 1].style.backgroundColor == "" || arr[i + 1].innerHTML == arr[i].innerHTML){
+                        return true;
+                    }  
+            }
+            if (i == 2 || i == 6 || i == 10 || i == 14){
+                if (arr[i + 1].style.backgroundColor == "" || arr[i + 1].innerHTML == arr[i].innerHTML){
+                        return true;
+                    }  
+            }
+    }
+}
+
+function canItMoveLeft(){
+    if (i == 3 || i == 7 || i == 11 || i == 15){
+        if (arr[i - 3].style.backgroundColor == "" || arr[i - 3].innerHTML == arr[i].innerHTML || 
+            arr[i - 2].style.backgroundColor == "" || arr[i - 2].innerHTML == arr[i].innerHTML ||
+            arr[i - 1].style.backgroundColor == "" || arr[i - 1].innerHTML == arr[i].innerHTML){
+                return true;
+            }  
+    }
+    if (i == 2 || i == 5 || i == 9 || i == 13){
+        if (arr[i - 2].style.backgroundColor == "" || arr[i - 2].innerHTML == arr[i].innerHTML ||
+            arr[i - 1].style.backgroundColor == "" || arr[i - 1].innerHTML == arr[i].innerHTML){
+                return true;
+            }  
+    }
+    if (i == 1 || i == 6 || i == 10 || i == 14){
+        if (arr[i - 1].style.backgroundColor == "" || arr[i - 3].innerHTML == arr[i].innerHTML){
+                return true;
+            }  
+    }
+}
+
+function canItMoveUp(){
+    if (i == 12 || i == 13 || i == 14 || i == 15){
+        if (arr[i - 12].style.backgroundColor == "" || arr[i - 12].innerHTML == arr[i].innerHTML || 
+            arr[i - 8].style.backgroundColor == "" || arr[i - 8].innerHTML == arr[i].innerHTML ||
+            arr[i - 4].style.backgroundColor == "" || arr[i - 4].innerHTML == arr[i].innerHTML){
+                return true;
+            }  
+    }
+    if (i == 8 || i == 9 || i == 10 || i == 11){
+        if (arr[i - 8].style.backgroundColor == "" || arr[i - 8].innerHTML == arr[i].innerHTML ||
+            arr[i - 4].style.backgroundColor == "" || arr[i - 4].innerHTML == arr[i].innerHTML){
+                return true;
+            }  
+    }
+    if (i == 4 || i == 5 || i == 6 || i == 7){
+        if (arr[i - 4].style.backgroundColor == "" || arr[i - 4].innerHTML == arr[i].innerHTML){
+                return true;
+            }  
+    }
+}
+
+function canItMoveDown(){
+    if (i == 0 || i == 1 || i == 2 || i == 3){
+        if (arr[i + 12].style.backgroundColor == "" || arr[i + 12].innerHTML == arr[i].innerHTML || 
+            arr[i + 8].style.backgroundColor == "" || arr[i + 8].innerHTML == arr[i].innerHTML ||
+            arr[i + 4].style.backgroundColor == "" || arr[i + 4].innerHTML == arr[i].innerHTML){
+                return true;
+            }  
+    }
+    if (i == 4 || i == 5 || i == 6 || i == 7){
+        if (arr[i + 8].style.backgroundColor == "" || arr[i + 8].innerHTML == arr[i].innerHTML ||
+            arr[i + 4].style.backgroundColor == "" || arr[i + 4].innerHTML == arr[i].innerHTML){
+                return true;
+            }  
+    }
+    if (i == 8 || i == 9 || i == 10 || i == 11){
+        if (arr[i + 4].style.backgroundColor == "" || arr[i + 4].innerHTML == arr[i].innerHTML){
+                return true;
+            }  
+    }
+}
+
 //Function to move right
 function shiftRight(x, y){
     let a = 0;
@@ -350,38 +436,38 @@ function shiftRight(x, y){
 
 function moveRight(event){
     if (isThereAGame()){
-        if (event.key == "d"){
-            shiftRight(10,  "<p>2048</p>");
-            shiftRight(9, "<p>1024</p>");
-            shiftRight(8, "<p>512</p>");
-            shiftRight(7, "<p>256</p>");
-            shiftRight(6, "<p>128</p>");
-            shiftRight(5, "<p>64</p>");
-            shiftRight(4, "<p>32</p>");
-            shiftRight(3, "<p>16</p>");
-            shiftRight(2, "<p>8</p>");
-            shiftRight(1, "<p>4</p>");
-            shiftRight(0, "<p>2</p>");
-            /*shiftRight(0, "<p>2</p>");
-            shiftRight(1, "<p>4</p>");
-            shiftRight(2, "<p>8</p>");
-            shiftRight(3, "<p>16</p>");
-            shiftRight(4, "<p>32</p>");
-            shiftRight(5, "<p>64</p>");
-            shiftRight(6, "<p>128</p>");
-            shiftRight(7, "<p>256</p>");
-            shiftRight(8, "<p>512</p>");
-            shiftRight(9, "<p>1024</p>");
-            shiftRight(10,  "<p>2048</p>");*/           
+        if(canItMoveRight()){
+            if (event.key == "d"){
+                shiftRight(10,  "<p>2048</p>");
+                shiftRight(9, "<p>1024</p>");
+                shiftRight(8, "<p>512</p>");
+                shiftRight(7, "<p>256</p>");
+                shiftRight(6, "<p>128</p>");
+                shiftRight(5, "<p>64</p>");
+                shiftRight(4, "<p>32</p>");
+                shiftRight(3, "<p>16</p>");
+                shiftRight(2, "<p>8</p>");
+                shiftRight(1, "<p>4</p>");
+                shiftRight(0, "<p>2</p>");
+                /*shiftRight(0, "<p>2</p>");
+                shiftRight(1, "<p>4</p>");
+                shiftRight(2, "<p>8</p>");
+                shiftRight(3, "<p>16</p>");
+                shiftRight(4, "<p>32</p>");
+                shiftRight(5, "<p>64</p>");
+                shiftRight(6, "<p>128</p>");
+                shiftRight(7, "<p>256</p>");
+                shiftRight(8, "<p>512</p>");
+                shiftRight(9, "<p>1024</p>");
+                shiftRight(10,  "<p>2048</p>");*/           
 
-            if(arr[3].innerHTML == "" || arr[7].innerHTML == "" || arr[11].innerHTML == "" || arr[15].innerHTML == ""){
                 let nextSquare = openSquares(arr);
                 let randomNo = Math.floor(Math.random() * nextSquare.length);
                 nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
                 nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+            }
         }
     }
-}
 }
 //Function to move left
 function shiftLeft(x, y){
