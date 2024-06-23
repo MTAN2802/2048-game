@@ -143,72 +143,129 @@ function canItMoveRight(arr){
                 }
         }
     }
-    console.log(counter)
+    //console.log(counter)
     if (counter != 0) return true;
     else return false;
 }
 
 function canItMoveLeft(){
-    if (i == 3 || i == 7 || i == 11 || i == 15){
-        if (arr[i - 3].style.backgroundColor == "" || arr[i - 3].innerHTML == arr[i].innerHTML || 
-            arr[i - 2].style.backgroundColor == "" || arr[i - 2].innerHTML == arr[i].innerHTML ||
-            arr[i - 1].style.backgroundColor == "" || arr[i - 1].innerHTML == arr[i].innerHTML){
-                return true;
-            }  
+    let counter = 0;
+    for (i = arr.length-1; i >=0; i--){
+        if (arr[i].style.backgroundColor != ""){
+            if (i == 0 || i == 4 || i == 8 || i == 13){
+                let edges = [0,4,8,12];
+                edges.forEach((edgeNo) => {
+                    if (arr[edgeNo + 3].style.backgroundColor != "" && arr[edgeNo + 3].innerHTML == arr[edgeNo + 2].innerHTML){
+                        counter++;
+                    } 
+                    if (arr[edgeNo + 3].style.backgroundColor != "" && arr[edgeNo + 3].innerHTML == arr[edgeNo + 1].innerHTML && arr[edgeNo + 2].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo + 3].style.backgroundColor != "" && arr[edgeNo + 3].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo +  2].style.backgroundColor == "" && arr[edgeNo + 1].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo + 2].style.backgroundColor != "" && arr[edgeNo + 2].innerHTML == arr[edgeNo + 1].innerHTML){
+                        counter++;
+                    } 
+                    if (arr[edgeNo + 2].style.backgroundColor != "" && arr[edgeNo + 2].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo + 1].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo + 1].style.backgroundColor != "" && arr[edgeNo + 1].innerHTML == arr[edgeNo].innerHTML){
+                        counter++;
+                    } 
+                })
+                    
+            }
+            if(i != 0 && i != 4 && i != 8 && i != 12){
+                if (arr[i-1].style.backgroundColor == "" || arr[i-1].innerHTML == arr[i].innerHTML){
+                        counter++;
+                        }  
+                }
+        }
     }
-    if (i == 2 || i == 5 || i == 9 || i == 13){
-        if (arr[i - 2].style.backgroundColor == "" || arr[i - 2].innerHTML == arr[i].innerHTML ||
-            arr[i - 1].style.backgroundColor == "" || arr[i - 1].innerHTML == arr[i].innerHTML){
-                return true;
-            }  
-    }
-    if (i == 1 || i == 6 || i == 10 || i == 14){
-        if (arr[i - 1].style.backgroundColor == "" || arr[i - 3].innerHTML == arr[i].innerHTML){
-                return true;
-            }  
-    }
+    //console.log(counter)
+    if (counter != 0) return true;
+    else return false;
 }
 
 function canItMoveUp(){
-    if (i == 12 || i == 13 || i == 14 || i == 15){
-        if (arr[i - 12].style.backgroundColor == "" || arr[i - 12].innerHTML == arr[i].innerHTML || 
-            arr[i - 8].style.backgroundColor == "" || arr[i - 8].innerHTML == arr[i].innerHTML ||
-            arr[i - 4].style.backgroundColor == "" || arr[i - 4].innerHTML == arr[i].innerHTML){
-                return true;
-            }  
+    let counter = 0;
+    for (i = arr.length-1; i >=0; i--){
+        if (arr[i].style.backgroundColor != ""){
+            if (i == 0 || i == 1 || i == 2 || i == 3){
+                let edges = [0,1,2,3];
+                edges.forEach((edgeNo) => {
+                    if (arr[edgeNo + 12].style.backgroundColor != "" && arr[edgeNo + 12].innerHTML == arr[edgeNo + 8].innerHTML){
+                        counter++;
+                    } 
+                    if (arr[edgeNo + 12].style.backgroundColor != "" && arr[edgeNo + 12].innerHTML == arr[edgeNo + 4].innerHTML && arr[edgeNo + 8].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo + 12].style.backgroundColor != "" && arr[edgeNo + 12].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo +  8].style.backgroundColor == "" && arr[edgeNo + 4].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo + 8].style.backgroundColor != "" && arr[edgeNo + 8].innerHTML == arr[edgeNo + 4].innerHTML){
+                        counter++;
+                    } 
+                    if (arr[edgeNo + 8].style.backgroundColor != "" && arr[edgeNo + 8].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo + 4].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo + 4].style.backgroundColor != "" && arr[edgeNo + 4].innerHTML == arr[edgeNo].innerHTML){
+                        counter++;
+                    } 
+                })
+                    
+            }
+            if(i != 0 && i != 1 && i != 2 && i != 3){
+                if (arr[i-4].style.backgroundColor == "" || arr[i-4].innerHTML == arr[i].innerHTML){
+                        counter++;
+                        }  
+                }
+        }
     }
-    if (i == 8 || i == 9 || i == 10 || i == 11){
-        if (arr[i - 8].style.backgroundColor == "" || arr[i - 8].innerHTML == arr[i].innerHTML ||
-            arr[i - 4].style.backgroundColor == "" || arr[i - 4].innerHTML == arr[i].innerHTML){
-                return true;
-            }  
-    }
-    if (i == 4 || i == 5 || i == 6 || i == 7){
-        if (arr[i - 4].style.backgroundColor == "" || arr[i - 4].innerHTML == arr[i].innerHTML){
-                return true;
-            }  
-    }
+    //console.log(counter)
+    if (counter != 0) return true;
+    else return false;
 }
 
 function canItMoveDown(){
-    if (i == 0 || i == 1 || i == 2 || i == 3){
-        if (arr[i + 12].style.backgroundColor == "" || arr[i + 12].innerHTML == arr[i].innerHTML || 
-            arr[i + 8].style.backgroundColor == "" || arr[i + 8].innerHTML == arr[i].innerHTML ||
-            arr[i + 4].style.backgroundColor == "" || arr[i + 4].innerHTML == arr[i].innerHTML){
-                return true;
-            }  
+    let counter = 0;
+    for (i = arr.length-1; i >=0; i--){
+        if (arr[i].style.backgroundColor != ""){
+            if (i == 12 || i == 13 || i == 14 || i == 15){
+                let edges = [12,13,14,15];
+                edges.forEach((edgeNo) => {
+                    if (arr[edgeNo - 12].style.backgroundColor != "" && arr[edgeNo - 12].innerHTML == arr[edgeNo - 8].innerHTML){
+                        counter++;
+                    } 
+                    if (arr[edgeNo - 12].style.backgroundColor != "" && arr[edgeNo - 12].innerHTML == arr[edgeNo - 4].innerHTML && arr[edgeNo - 8].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo - 12].style.backgroundColor != "" && arr[edgeNo - 12].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo -  8].style.backgroundColor == "" && arr[edgeNo - 4].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo - 8].style.backgroundColor != "" && arr[edgeNo - 8].innerHTML == arr[edgeNo - 4].innerHTML){
+                        counter++;
+                    } 
+                    if (arr[edgeNo - 8].style.backgroundColor != "" && arr[edgeNo - 8].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo - 4].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo - 4].style.backgroundColor != "" && arr[edgeNo - 4].innerHTML == arr[edgeNo].innerHTML){
+                        counter++;
+                    } 
+                })
+                    
+            }
+            if(i != 12 && i != 13 && i != 14 && i != 15){
+                if (arr[i+4].style.backgroundColor == "" || arr[i+4].innerHTML == arr[i].innerHTML){
+                        counter++;
+                        }  
+                }
+        }
     }
-    if (i == 4 || i == 5 || i == 6 || i == 7){
-        if (arr[i + 8].style.backgroundColor == "" || arr[i + 8].innerHTML == arr[i].innerHTML ||
-            arr[i + 4].style.backgroundColor == "" || arr[i + 4].innerHTML == arr[i].innerHTML){
-                return true;
-            }  
-    }
-    if (i == 8 || i == 9 || i == 10 || i == 11){
-        if (arr[i + 4].style.backgroundColor == "" || arr[i + 4].innerHTML == arr[i].innerHTML){
-                return true;
-            }  
-    }
+    console.log(counter)
+    if (counter != 0) return true;
+    else return false;
 }
 
 //Function to move right
@@ -728,38 +785,39 @@ function shiftLeft(x, y){
 
 function moveLeft(event){
     if (isThereAGame()){
-        if (event.key == "a"){
-            shiftLeft(10,  "<p>2048</p>");
-            shiftLeft(9, "<p>1024</p>");
-            shiftLeft(8, "<p>512</p>");
-            shiftLeft(7, "<p>256</p>");
-            shiftLeft(6, "<p>128</p>");
-            shiftLeft(5, "<p>64</p>");
-            shiftLeft(4, "<p>32</p>");
-            shiftLeft(3, "<p>16</p>");
-            shiftLeft(2, "<p>8</p>");
-            shiftLeft(1, "<p>4</p>");
-            shiftLeft(0, "<p>2</p>");
-            /*shiftLeft(0, "<p>2</p>");
-            shiftLeft(1, "<p>4</p>");
-            shiftLeft(2, "<p>8</p>");
-            shiftLeft(3, "<p>16</p>");
-            shiftLeft(4, "<p>32</p>");
-            shiftLeft(5, "<p>64</p>");
-            shiftLeft(6, "<p>128</p>");
-            shiftLeft(7, "<p>256</p>");
-            shiftLeft(8, "<p>512</p>");
-            shiftLeft(9, "<p>1024</p>");
-            shiftLeft(10, "<p>2048</p>");*/         
-
-            if(arr[0].innerHTML == "" || arr[4].innerHTML == "" || arr[8].innerHTML == "" || arr[12].innerHTML == ""){
+        if (canItMoveLeft()){
+            if (event.key == "a"){
+                shiftLeft(10,  "<p>2048</p>");
+                shiftLeft(9, "<p>1024</p>");
+                shiftLeft(8, "<p>512</p>");
+                shiftLeft(7, "<p>256</p>");
+                shiftLeft(6, "<p>128</p>");
+                shiftLeft(5, "<p>64</p>");
+                shiftLeft(4, "<p>32</p>");
+                shiftLeft(3, "<p>16</p>");
+                shiftLeft(2, "<p>8</p>");
+                shiftLeft(1, "<p>4</p>");
+                shiftLeft(0, "<p>2</p>");
+                /*shiftLeft(0, "<p>2</p>");
+                shiftLeft(1, "<p>4</p>");
+                shiftLeft(2, "<p>8</p>");
+                shiftLeft(3, "<p>16</p>");
+                shiftLeft(4, "<p>32</p>");
+                shiftLeft(5, "<p>64</p>");
+                shiftLeft(6, "<p>128</p>");
+                shiftLeft(7, "<p>256</p>");
+                shiftLeft(8, "<p>512</p>");
+                shiftLeft(9, "<p>1024</p>");
+                shiftLeft(10, "<p>2048</p>");*/         
+    
                 let nextSquare = openSquares(arr);
                 let randomNo = Math.floor(Math.random() * nextSquare.length);
                 nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
                 nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+ 
             }
-            
         }
+        
     }
 }
 
@@ -1005,37 +1063,36 @@ function shiftDown(x, y){
 
 function moveDown(event){
     if (isThereAGame()){
-        if (event.key == "s"){
-            shiftDown(10,  "<p>2048</p>");
-            shiftDown(9, "<p>1024</p>");
-            shiftDown(8, "<p>512</p>");
-            shiftDown(7, "<p>256</p>");
-            shiftDown(6, "<p>128</p>");
-            shiftDown(5, "<p>64</p>");
-            shiftDown(4, "<p>32</p>");
-            shiftDown(3, "<p>16</p>");
-            shiftDown(2, "<p>8</p>");
-            shiftDown(1, "<p>4</p>");
-            shiftDown(0, "<p>2</p>");
-            /*shiftDown(0, "<p>2</p>");
-            shiftDown(1, "<p>4</p>");
-            shiftDown(2, "<p>8</p>");
-            shiftDown(3, "<p>16</p>");
-            shiftDown(4, "<p>32</p>");
-            shiftDown(5, "<p>64</p>");
-            shiftDown(6, "<p>128</p>");
-            shiftDown(7, "<p>256</p>");
-            shiftDown(8, "<p>512</p>");
-            shiftDown(9, "<p>1024</p>");
-            shiftDown(10,  "<p>2048</p>");*/         
-
-            if(arr[12].innerHTML == "" || arr[13].innerHTML == "" || arr[14].innerHTML == "" || arr[15].innerHTML == ""){
+        if (canItMoveDown()){
+            if (event.key == "s"){
+                shiftDown(10,  "<p>2048</p>");
+                shiftDown(9, "<p>1024</p>");
+                shiftDown(8, "<p>512</p>");
+                shiftDown(7, "<p>256</p>");
+                shiftDown(6, "<p>128</p>");
+                shiftDown(5, "<p>64</p>");
+                shiftDown(4, "<p>32</p>");
+                shiftDown(3, "<p>16</p>");
+                shiftDown(2, "<p>8</p>");
+                shiftDown(1, "<p>4</p>");
+                shiftDown(0, "<p>2</p>");
+                /*shiftDown(0, "<p>2</p>");
+                shiftDown(1, "<p>4</p>");
+                shiftDown(2, "<p>8</p>");
+                shiftDown(3, "<p>16</p>");
+                shiftDown(4, "<p>32</p>");
+                shiftDown(5, "<p>64</p>");
+                shiftDown(6, "<p>128</p>");
+                shiftDown(7, "<p>256</p>");
+                shiftDown(8, "<p>512</p>");
+                shiftDown(9, "<p>1024</p>");
+                shiftDown(10,  "<p>2048</p>");*/         
+    
                 let nextSquare = openSquares(arr);
                 let randomNo = Math.floor(Math.random() * nextSquare.length);
                 nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
-                nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+                nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`; 
             }
-            
         }
     }
 }
@@ -1282,31 +1339,31 @@ function shiftUp(x, y){
 
 function moveUp(event){
     if (isThereAGame()){
-        if (event.key == "w"){
-            shiftUp(10,  "<p>2048</p>");
-            shiftUp(9, "<p>1024</p>");
-            shiftUp(8, "<p>512</p>");
-            shiftUp(7, "<p>256</p>");
-            shiftUp(6, "<p>128</p>");
-            shiftUp(5, "<p>64</p>");
-            shiftUp(4, "<p>32</p>");
-            shiftUp(3, "<p>16</p>");
-            shiftUp(2, "<p>8</p>");
-            shiftUp(1, "<p>4</p>");
-            shiftUp(0, "<p>2</p>");
-            /*shiftUp(0, "<p>2</p>");
-            shiftUp(1, "<p>4</p>");
-            shiftUp(2, "<p>8</p>");
-            shiftUp(3, "<p>16</p>");
-            shiftUp(4, "<p>32</p>");
-            shiftUp(5, "<p>64</p>");
-            shiftUp(6, "<p>128</p>");
-            shiftUp(7, "<p>256</p>");
-            shiftUp(8, "<p>512</p>");
-            shiftUp(9, "<p>1024</p>");
-            shiftUp(10,  "<p>2048</p>");*/  
+        if (canItMoveUp()){
+            if (event.key == "w"){
+                shiftUp(10,  "<p>2048</p>");
+                shiftUp(9, "<p>1024</p>");
+                shiftUp(8, "<p>512</p>");
+                shiftUp(7, "<p>256</p>");
+                shiftUp(6, "<p>128</p>");
+                shiftUp(5, "<p>64</p>");
+                shiftUp(4, "<p>32</p>");
+                shiftUp(3, "<p>16</p>");
+                shiftUp(2, "<p>8</p>");
+                shiftUp(1, "<p>4</p>");
+                shiftUp(0, "<p>2</p>");
+                /*shiftUp(0, "<p>2</p>");
+                shiftUp(1, "<p>4</p>");
+                shiftUp(2, "<p>8</p>");
+                shiftUp(3, "<p>16</p>");
+                shiftUp(4, "<p>32</p>");
+                shiftUp(5, "<p>64</p>");
+                shiftUp(6, "<p>128</p>");
+                shiftUp(7, "<p>256</p>");
+                shiftUp(8, "<p>512</p>");
+                shiftUp(9, "<p>1024</p>");
+                shiftUp(10,  "<p>2048</p>");*/  
 
-            if(arr[0].innerHTML == "" || arr[1].innerHTML == "" || arr[2].innerHTML == "" || arr[3].innerHTML == ""){
                 let nextSquare = openSquares(arr);
                 let randomNo = Math.floor(Math.random() * nextSquare.length);
                 nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
