@@ -108,27 +108,44 @@ function openSquares(arr) {
     return available;
 }
 
-function canItMoveRight(){
-    for (i = 0; i < arr.length; i++){
-        if(i == 0 || i == 4 || i == 8 || i == 12){
-            if (arr[i + 3].style.backgroundColor == "" || arr[i + 3].innerHTML == arr[i].innerHTML || 
-                arr[i + 2].style.backgroundColor == "" || arr[i + 2].innerHTML == arr[i].innerHTML ||
-                arr[i + 1].style.backgroundColor == "" || arr[i + 1].innerHTML == arr[i].innerHTML){
-                    return true;
-                    }  
+function canItMoveRight(arr){
+    let counter = 0;
+    for (i = arr.length-1; i >=0; i--){
+        if (arr[i].style.backgroundColor != ""){
+            if (i == 3 || i == 7 || i == 11 || i == 15){
+                let edges = [3,7,11,15];
+                edges.forEach((edgeNo) => {
+                    if (arr[edgeNo - 3].style.backgroundColor != "" && arr[edgeNo - 3].innerHTML == arr[edgeNo - 2].innerHTML){
+                        counter++;
+                    } 
+                    if (arr[edgeNo - 3].style.backgroundColor != "" && arr[edgeNo - 3].innerHTML == arr[edgeNo - 1].innerHTML && arr[edgeNo - 2].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo - 3].style.backgroundColor != "" && arr[edgeNo - 3].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo - 2].style.backgroundColor == "" && arr[edgeNo - 1].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo - 2].style.backgroundColor != "" && arr[edgeNo - 2].innerHTML == arr[edgeNo - 1].innerHTML){
+                        counter++;
+                    } 
+                    if (arr[edgeNo - 2].style.backgroundColor != "" && arr[edgeNo - 2].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo - 1].style.backgroundColor == "") {
+                        counter++;
+                    }
+                    if (arr[edgeNo - 1].style.backgroundColor != "" && arr[edgeNo - 1].innerHTML == arr[edgeNo].innerHTML){
+                        counter++;
+                    } 
+                })
+                    
             }
-            if (i == 1 || i == 5 || i == 9 || i == 13){
-                if (arr[i + 2].style.backgroundColor == "" || arr[i + 2].innerHTML == arr[i].innerHTML ||
-                    arr[i + 1].style.backgroundColor == "" || arr[i + 1].innerHTML == arr[i].innerHTML){
-                        return true;
-                    }  
-            }
-            if (i == 2 || i == 6 || i == 10 || i == 14){
-                if (arr[i + 1].style.backgroundColor == "" || arr[i + 1].innerHTML == arr[i].innerHTML){
-                        return true;
-                    }  
-            }
+            if(i != 3 && i != 7 && i != 11 && i != 15){
+                if (arr[i+1].style.backgroundColor == "" || arr[i+1].innerHTML == arr[i].innerHTML){
+                        counter++;
+                        }  
+                }
+        }
     }
+    console.log(counter)
+    if (counter != 0) return true;
+    else return false;
 }
 
 function canItMoveLeft(){
@@ -436,8 +453,8 @@ function shiftRight(x, y){
 
 function moveRight(event){
     if (isThereAGame()){
-        if(canItMoveRight()){
-            if (event.key == "d"){
+        if(canItMoveRight(arr)){
+            if (event.key == "d" || event.key == "D"){
                 shiftRight(10,  "<p>2048</p>");
                 shiftRight(9, "<p>1024</p>");
                 shiftRight(8, "<p>512</p>");
