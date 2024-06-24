@@ -71,14 +71,14 @@ function isThereAGame(){
 }
 
 function initiateGame(){
-    //let test = 0;
+    let test = 6;
     let randomNo = Math.floor(Math.random() * 16);
     if (isThereAGame()){
         alert('There is already an active game!')
     }
     else{
         for (i=0; i < arr.length; i++){
-            if (randomNo == i){
+            if (test == i){
                 arr[i].style.backgroundColor = `${tiles[0].hex}`;
                 arr[i].innerHTML = `<p>${tiles[0].number}</p>`;
             }
@@ -108,7 +108,8 @@ function openSquares(arr) {
     return available;
 }
 
-function canItMoveRight(arr){
+//Functions to determine if tiles can be moved in each direction
+function canItMoveRight(){
     let counter = 0;
     for (i = arr.length-1; i >=0; i--){
         if (arr[i].style.backgroundColor != ""){
@@ -143,7 +144,7 @@ function canItMoveRight(arr){
                 }
         }
     }
-    //console.log(counter)
+    //console.log(`Right counter: ${counter}`)
     if (counter != 0) return true;
     else return false;
 }
@@ -183,7 +184,7 @@ function canItMoveLeft(){
                 }
         }
     }
-    //console.log(counter)
+    //console.log(`Left counter: ${counter}`)
     if (counter != 0) return true;
     else return false;
 }
@@ -223,7 +224,7 @@ function canItMoveUp(){
                 }
         }
     }
-    //console.log(counter)
+    //console.log(`Up counter: ${counter}`)
     if (counter != 0) return true;
     else return false;
 }
@@ -263,254 +264,115 @@ function canItMoveDown(){
                 }
         }
     }
-    console.log(counter)
+    //console.log(`Down counter: ${counter}`)
     if (counter != 0) return true;
     else return false;
 }
 
 //Function to move right
+
 function shiftRight(x, y){
-    let a = 0;
-            while(a < 3){ //For all the tiles in the first row
-                
-                if (arr[a].innerHTML == y){ //If the current tile has a value of "2"
-                    a++
-                    
-                    if(arr[a].style.backgroundColor == "" && a < 3){ //If the next tile from target is empty
-                        arr[a-1].innerHTML = "";
-                        arr[a-1].style.backgroundColor = "";
-                        a++
+    for (i = arr.length-1; i >= 0; i--){
+        if(arr[i].innerHTML == y){ //If the number in the target tile is "y"
+            if (i != 3 && i != 7 && i != 11 && i!= 15){ //Anything but the very right column
+                const veryLeftColumn = [12, 8, 4, 0];
+                const secondLeftColumn = [13, 9, 5, 1];
+                const secondRightColumn = [14, 10, 6, 2];
+
+                if (veryLeftColumn.includes(i)) {
+                    if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == "" && arr[i+3].style.backgroundColor == ""){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i+3].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i+3].innerHTML = `<p>${tiles[x].number}</p>`;
                         
-                        if(arr[a].style.backgroundColor == "" && a < 3){ //If the next two tiles from target is empty
-                            a++;
-                            if(arr[a].style.backgroundColor == ""){ //If the next three tiles from target is empty
-                                arr[a].innerHTML = `<p>${tiles[x].number}</p>`
-                                arr[a].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                            else if (arr[a].innerHTML == y){ //If the next two tiles from target is empty but the last one is "2"
-                                arr[a-1].innerHTML = ``;
-                                arr[a-1].style.backgroundColor = ``;
-                                arr[a].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                                arr[a].style.backgroundColor = `${tiles[x+1].hex}`;
-                            }
-                            else{  //If the next two tiles from target is empty but a number other than "2" is next
-                                arr[a-1].innerHTML = `<p>${tiles[x].number}</p>`;
-                                arr[a-1].style.backgroundColor = `${tiles[x].hex}`;
-                            }
-                        }
-                        else if (arr[a].innerHTML == y){ //If the next tile from target is empty but the next one is "2"
-                            arr[a-1].innerHTML = ``;
-                            arr[a-1].style.backgroundColor = ``;
-                            arr[a].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                            arr[a].style.backgroundColor = `${tiles[x+1].hex}`;
-                        }
-                        else if (arr[a].innerHTML != y && arr[a].style.backgroundColor != "") { //If the next tile from target is empty but a number other than "2" is next
-                            arr[a-1].innerHTML = `<p>${tiles[x].number}</p>`;
-                            arr[a-1].style.backgroundColor = `${tiles[x].hex}`;
-                            }
-                        else if(arr[a].style.backgroundColor == "" && a == 3){
-                            arr[a].innerHTML = `<p>${tiles[x].number}</p>`;
-                            arr[a].style.backgroundColor = `${tiles[x].hex}`;
-                        }
-                        }
-                    else if (arr[a].style.backgroundColor == "" && a == 3){
-                        arr[a-1].innerHTML = "";
-                        arr[a-1].style.backgroundColor = "";
-                        arr[a].innerHTML = `<p>${tiles[x].number}</p>`;
-                        arr[a].style.backgroundColor = `${tiles[x].hex}`;
                     }
-                    else if (arr[a].innerHTML == y){ //If the next tile from target is "2"
-                        arr[a-1].innerHTML = ``;
-                        arr[a-1].style.backgroundColor = ``;
-                        arr[a].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                        arr[a].style.backgroundColor = `${tiles[x+1].hex}`;
+                    else if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == "" && arr[i+3].style.backgroundColor != "" && arr[i+3].innerHTML != arr[i].innerHTML){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i+2].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i+2].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+                    else if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor != "" && arr[i+2].innerHTML != arr[i].innerHTML){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i+1].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i+1].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+
+                    if (arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == "" && arr[i+3].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i+3].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i+3].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+                    else if (arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor != "" && arr[i+2].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i+2].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i+2].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+                    else if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i+1].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i+1].style.backgroundColor = `${tiles[x+1].hex}`
                     }
                 }
-                a++;
-            }
-    
-            let b = 4;
-            while(b < 7){ //For all the tiles in the first row
-                
-                if (arr[b].innerHTML == y){ //If the current tile has a value of "2"
-                    b++
-                    
-                    if(arr[b].style.backgroundColor == "" && b < 7){ //If the next tile from target is empty
-                        arr[b-1].innerHTML = "";
-                        arr[b-1].style.backgroundColor = "";
-                        b++
-                        
-                        if(arr[b].style.backgroundColor == "" && b < 7){ //If the next two tiles from target is empty
-                            b++;
-                            if(arr[b].style.backgroundColor == ""){ //If the next three tiles from target is empty
-                                arr[b].innerHTML = `<p>${tiles[x].number}</p>`
-                                arr[b].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                            else if (arr[b].innerHTML == y){ //If the next two tiles from target is empty but the last one is "2"
-                                arr[b-1].innerHTML = ``;
-                                arr[b-1].style.backgroundColor = ``;
-                                arr[b].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                                arr[b].style.backgroundColor = `${tiles[x+1].hex}`;
-                            }
-                            else{  //If the next two tiles from target is empty but a number other than "2" is next
-                                arr[b-1].innerHTML = `<p>${tiles[x].number}</p>`
-                                arr[b-1].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                        }
-                        else if (arr[b].innerHTML == y){ //If the next tile from target is empty but the next one is "2"
-                            arr[b-1].innerHTML = ``;
-                            arr[b-1].style.backgroundColor = ``;
-                            arr[b].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                            arr[b].style.backgroundColor = `${tiles[x+1].hex}`;
-                        }
-                        else if (arr[b].innerHTML != y && arr[b].style.backgroundColor != "") { //If the next tile from target is empty but a number other than "2" is next
-                            arr[b-1].innerHTML = `<p>${tiles[x].number}</p>`
-                            arr[b-1].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                        else if(arr[b].style.backgroundColor == "" && b == 7){
-                            arr[b].innerHTML = `<p>${tiles[x].number}</p>`;
-                            arr[b].style.backgroundColor = `${tiles[x].hex}`;
-                        }
-                        }
-                    else if (arr[b].style.backgroundColor == "" && b == 7){
-                        arr[b-1].innerHTML = "";
-                        arr[b-1].style.backgroundColor = "";
-                        arr[b].innerHTML = `<p>${tiles[x].number}</p>`;
-                        arr[b].style.backgroundColor = `${tiles[x].hex}`;
+
+                if (secondLeftColumn.includes(i)) {
+                    if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == ""){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i+2].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i+2].innerHTML = `<p>${tiles[x].number}</p>`;
                     }
-                    else if (arr[b].innerHTML == y){ //If the next tile from target is "2"
-                        arr[b-1].innerHTML = ``;
-                        arr[b-1].style.backgroundColor = ``;
-                        arr[b].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                        arr[b].style.backgroundColor = `${tiles[x+1].hex}`;
+                    else if (arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor != "" && arr[i+2].innerHTML != arr[i].innerHTML){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i+1].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i+1].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+
+                    if(arr[i+1].style.backgroundColor == "" && arr[i+2].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i+2].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i+2].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+                    else if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i+1].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i+1].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+
+                }
+
+                if (secondRightColumn.includes(i)){
+                    if (arr[i+1].style.backgroundColor == ""){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i+1].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i+1].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+
+                    if (arr[i+1].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i+1].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i+1].style.backgroundColor = `${tiles[x+1].hex}`
                     }
                 }
-                b++;
-            }
-    
-            let c = 8;
-            while(c < 11){ //For all the tiles in the first row
                 
-                if (arr[c].innerHTML == y){ //If the current tile has a value of "2"
-                    c++
-                    
-                    if(arr[c].style.backgroundColor == "" && c < 11){ //If the next tile from target is empty
-                        arr[c-1].innerHTML = "";
-                        arr[c-1].style.backgroundColor = "";
-                        c++
-                        
-                        if(arr[c].style.backgroundColor == "" && c < 11){ //If the next two tiles from target is empty
-                            c++;
-                            if(arr[c].style.backgroundColor == ""){ //If the next three tiles from target is empty
-                                arr[c].innerHTML = `<p>${tiles[x].number}</p>`
-                                arr[c].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                            else if (arr[c].innerHTML == y){ //If the next two tiles from target is empty but the last one is "2"
-                                arr[c-1].innerHTML = ``;
-                                arr[c-1].style.backgroundColor = ``;
-                                arr[c].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                                arr[c].style.backgroundColor = `${tiles[x+1].hex}`;
-                            }
-                            else{  //If the next two tiles from target is empty but a number other than "2" is next
-                                arr[c-1].innerHTML = `<p>${tiles[x].number}</p>`
-                                arr[c-1].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                        }
-                        else if (arr[c].innerHTML == y){ //If the next tile from target is empty but the next one is "2"
-                            arr[c-1].innerHTML = ``;
-                            arr[c-1].style.backgroundColor = ``;
-                            arr[c].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                            arr[c].style.backgroundColor = `${tiles[x+1].hex}`;
-                        }
-                        else if (arr[c].innerHTML != y && arr[c].style.backgroundColor != "") { //If the next tile from target is empty but a number other than "2" is next
-                            arr[c-1].innerHTML = `<p>${tiles[x].number}</p>`
-                            arr[c-1].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                        else if(arr[c].style.backgroundColor == "" && c == 11){
-                            arr[c].innerHTML = `<p>${tiles[x].number}</p>`;
-                            arr[c].style.backgroundColor = `${tiles[x].hex}`;
-                        }
-                        }
-                    else if (arr[c].style.backgroundColor == "" && c == 11){
-                        arr[c-1].innerHTML = "";
-                        arr[c-1].style.backgroundColor = "";
-                        arr[c].innerHTML = `<p>${tiles[x].number}</p>`;
-                        arr[c].style.backgroundColor = `${tiles[x].hex}`;
-                    }
-                    else if (arr[c].innerHTML == y){ //If the next tile from target is "2"
-                        arr[c-1].innerHTML = ``;
-                        arr[c-1].style.backgroundColor = ``;
-                        arr[c].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                        arr[c].style.backgroundColor = `${tiles[x+1].hex}`;
-                    }
-                }
-                c++;
             }
-    
-            let d = 12;
-    
-            while(d < 15){ //For all the tiles in the first row
-                
-                if (arr[d].innerHTML == y){ //If the current tile has a value of "2"
-                    d++
-                    
-                    if(arr[d].style.backgroundColor == "" && d < 15){ //If the next tile from target is empty
-                        arr[d-1].innerHTML = "";
-                        arr[d-1].style.backgroundColor = "";
-                        d++
-                        
-                        if(arr[d].style.backgroundColor == "" && d < 15){ //If the next two tiles from target is empty
-                            d++;
-                            if(arr[d].style.backgroundColor == ""){ //If the next three tiles from target is empty
-                                arr[d].innerHTML = `<p>${tiles[x].number}</p>`
-                                arr[d].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                            else if (arr[d].innerHTML == y){ //If the next two tiles from target is empty but the last one is "2"
-                                arr[d-1].innerHTML = ``;
-                                arr[d-1].style.backgroundColor = ``;
-                                arr[d].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                                arr[d].style.backgroundColor = `${tiles[x+1].hex}`;
-                            }
-                            else{  //If the next two tiles from target is empty but a number other than "2" is next
-                                arr[d-1].innerHTML = `<p>${tiles[x].number}</p>`
-                                arr[d-1].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                        }
-                        else if (arr[d].innerHTML == y){ //If the next tile from target is empty but the next one is "2"
-                            arr[d-1].innerHTML = ``;
-                            arr[d-1].style.backgroundColor = ``;
-                            arr[d].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                            arr[d].style.backgroundColor = `${tiles[x+1].hex}`;
-                        }
-                        else if (arr[d].innerHTML != y && arr[d].style.backgroundColor != "") { //If the next tile from target is empty but a number other than "2" is next
-                            arr[d-1].innerHTML = `<p>${tiles[x].number}</p>`
-                            arr[d-1].style.backgroundColor = `${tiles[x].hex}`
-                            }
-                        else if(arr[d].style.backgroundColor == "" && d == 15){
-                            arr[d].innerHTML = `<p>${tiles[x].number}</p>`;
-                            arr[d].style.backgroundColor = `${tiles[x].hex}`;
-                        }
-                        }
-                    else if (arr[d].style.backgroundColor == "" && d == 15){
-                        arr[d-1].innerHTML = "";
-                        arr[d-1].style.backgroundColor = "";
-                        arr[d].innerHTML = `<p>${tiles[x].number}</p>`;
-                        arr[d].style.backgroundColor = `${tiles[x].hex}`;
-                    }
-                    else if (arr[d].innerHTML == y){ //If the next tile from target is "2"
-                        arr[d-1].innerHTML = ``;
-                        arr[d-1].style.backgroundColor = ``;
-                        arr[d].innerHTML = `<p>${tiles[x+1].number}</p>`;
-                        arr[d].style.backgroundColor = `${tiles[x+1].hex}`;
-                    }
-                }
-                d++;
-            }
+        }
+    }  
 }
 
 function moveRight(event){
     if (isThereAGame()){
-        if(canItMoveRight(arr)){
+        if(canItMoveRight()){
             if (event.key == "d" || event.key == "D"){
                 shiftRight(10,  "<p>2048</p>");
                 shiftRight(9, "<p>1024</p>");
@@ -522,18 +384,7 @@ function moveRight(event){
                 shiftRight(3, "<p>16</p>");
                 shiftRight(2, "<p>8</p>");
                 shiftRight(1, "<p>4</p>");
-                shiftRight(0, "<p>2</p>");
-                /*shiftRight(0, "<p>2</p>");
-                shiftRight(1, "<p>4</p>");
-                shiftRight(2, "<p>8</p>");
-                shiftRight(3, "<p>16</p>");
-                shiftRight(4, "<p>32</p>");
-                shiftRight(5, "<p>64</p>");
-                shiftRight(6, "<p>128</p>");
-                shiftRight(7, "<p>256</p>");
-                shiftRight(8, "<p>512</p>");
-                shiftRight(9, "<p>1024</p>");
-                shiftRight(10,  "<p>2048</p>");*/           
+                shiftRight(0, "<p>2</p>");        
 
                 let nextSquare = openSquares(arr);
                 let randomNo = Math.floor(Math.random() * nextSquare.length);
