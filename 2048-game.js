@@ -292,24 +292,35 @@ function canItMoveDown(){
     else return false;
 }
 
+//Function to see which number is in selected tile
+function numInTile(x){
+    let n = 0;
+    while (x != tiles[n].numCode){
+        n++
+    }
+    return n
+}
+
 //Function to move right
 function shiftRight(){
     for (i = arr.length-1; i >=0 ; i--){
-        if(arr[i].style.backgroundColor != ""){ //If the number in the target tile is "y"
+        if(arr[i].style.backgroundColor != ""){ //If the tile is not empty
             if (i != 3 && i != 7 && i != 11 && i!= 15){ //Anything but the very right column
                 const veryLeftColumn = [0, 4, 8, 12];
                 const secondLeftColumn = [1, 5, 9, 13];
                 const secondRightColumn = [2, 6, 10, 14];
+                const x = numInTile(arr[i].innerHTML);
 
-                if (secondRightColumn.includes(i)){
-                    if (arr[i+1].style.backgroundColor == ""){
+                if (secondRightColumn.includes(i)){ //If the selected tile is in the second right column
+                    if (arr[i+1].style.backgroundColor == ""){ //If the very right column is empty
+                        arr[i+1].style.backgroundColor = arr[i].style.backgroundColor;
+                        arr[i+1].innerHTML = arr[i].innerHTML;
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
-                        arr[i+1].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i+1].innerHTML = `<p>${tiles[x].number}</p>`;
+
                     }
 
-                    if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){
+                    if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){ //If next tile is not empty and has the same number
                         arr[i].style.backgroundColor = "";
                         arr[i].innerHTML = "";
                         arr[i+1].innerHTML = `<p>${tiles[x+1].number}</p>`
@@ -317,28 +328,28 @@ function shiftRight(){
                     }
                 }
 
-                if (secondLeftColumn.includes(i)) {
-                    if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == ""){
+                if (secondLeftColumn.includes(i)) { //If the selected tile is in the second column to the left
+                    if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == ""){ //If the next two tiles are empty
+                        arr[i+2].style.backgroundColor = arr[i].style.backgroundColor;
+                        arr[i+2].innerHTML = arr[i].innerHTML;
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
-                        arr[i+2].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i+2].innerHTML = `<p>${tiles[x].number}</p>`;
                     }
-                    else if (arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor != "" && arr[i+2].innerHTML != arr[i].innerHTML){
+                    else if (arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor != "" && arr[i+2].innerHTML != arr[i].innerHTML){ //If the next tile is empty but the end tile has a different number
+                        arr[i+1].style.backgroundColor = arr[i].style.backgroundColor;
+                        arr[i+1].innerHTML = arr[i].innerHTML;
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
-                        arr[i+1].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i+1].innerHTML = `<p>${tiles[x].number}</p>`;
                     }
 
-                    if(arr[i+1].style.backgroundColor == "" && arr[i+2].innerHTML == arr[i].innerHTML){
+                    if(arr[i+1].style.backgroundColor == "" && arr[i+2].innerHTML == arr[i].innerHTML){ //If the next tile is empty but the end tile equals the selected tile
                         arr[i].style.backgroundColor = "";
                         arr[i].innerHTML = "";
                         arr[i+2].innerHTML = `<p>${tiles[x+1].number}</p>`
                         arr[i+2].style.backgroundColor = `${tiles[x+1].hex}`
                     }
                     
-                    else if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){
+                    else if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){ //If the next tile has the same number as the selected tile
                         arr[i].style.backgroundColor = "";
                         arr[i].innerHTML = "";
                         arr[i+1].innerHTML = `<p>${tiles[x+1].number}</p>`
@@ -347,51 +358,47 @@ function shiftRight(){
 
                 }
                 
-                if (veryLeftColumn.includes(i)) {
-                    if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == "" && arr[i+3].style.backgroundColor == ""){
+                if (veryLeftColumn.includes(i)) { //If the selected column is in the very left column
+                    if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == "" && arr[i+3].style.backgroundColor == ""){ // If all three next tiles are empty
+                        arr[i+3].style.backgroundColor = arr[i].style.backgroundColor;
+                        arr[i+3].innerHTML = arr[i].innerHTML;
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
-                        arr[i+3].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i+3].innerHTML = `<p>${tiles[x].number}</p>`;
                         
                     }
-                    else if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == "" && arr[i+3].style.backgroundColor != "" && arr[i+3].innerHTML != arr[i].innerHTML){
+                    else if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == "" && arr[i+3].style.backgroundColor != "" && 
+                    arr[i+3].innerHTML != arr[i].innerHTML){ // If the next two tiles are empty and the last column tile has a different number
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
                         arr[i+2].style.backgroundColor = `${tiles[x].hex}`;
                         arr[i+2].innerHTML = `<p>${tiles[x].number}</p>`;
                     }
-                    else if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor != "" && arr[i+2].innerHTML != arr[i].innerHTML){
+                    else if(arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor != "" && arr[i+2].innerHTML != arr[i].innerHTML){ //If the next tile is empty but the tile after has a different number
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
                         arr[i+1].style.backgroundColor = `${tiles[x].hex}`;
                         arr[i+1].innerHTML = `<p>${tiles[x].number}</p>`;
                     }
 
-                    if (arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == "" && arr[i+3].innerHTML == arr[i].innerHTML){
+                    if (arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor == "" && arr[i+3].innerHTML == arr[i].innerHTML){ //If the next two tiles are empty and the last tile has the same number
                         arr[i].style.backgroundColor = "";
                         arr[i].innerHTML = "";
                         arr[i+3].innerHTML = `<p>${tiles[x+1].number}</p>`
                         arr[i+3].style.backgroundColor = `${tiles[x+1].hex}`
                     }
-                    else if (arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor != "" && arr[i+2].innerHTML == arr[i].innerHTML){
+                    else if (arr[i+1].style.backgroundColor == "" && arr[i+2].style.backgroundColor != "" && arr[i+2].innerHTML == arr[i].innerHTML){ //If the next tile is empty but the tile after has the same number
                         arr[i].style.backgroundColor = "";
                         arr[i].innerHTML = "";
                         arr[i+2].innerHTML = `<p>${tiles[x+1].number}</p>`
                         arr[i+2].style.backgroundColor = `${tiles[x+1].hex}`
                     }
-                    else if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){
+                    else if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){ //If the next tile has the same number
                         arr[i].style.backgroundColor = "";
                         arr[i].innerHTML = "";
                         arr[i+1].innerHTML = `<p>${tiles[x+1].number}</p>`
                         arr[i+1].style.backgroundColor = `${tiles[x+1].hex}`
                     }
                 }
-
-                
-
-                
-                
             }
         }
     }  
@@ -401,17 +408,7 @@ function moveRight(event){
     if (isThereAGame()){
         if(canItMoveRight()){
             if (event.key == "d" || event.key == "D"){
-                shiftRight(10,  "<p>2048</p>");
-                shiftRight(9, "<p>1024</p>");
-                shiftRight(8, "<p>512</p>");
-                shiftRight(7, "<p>256</p>");
-                shiftRight(6, "<p>128</p>");
-                shiftRight(5, "<p>64</p>");
-                shiftRight(4, "<p>32</p>");
-                shiftRight(3, "<p>16</p>");
-                shiftRight(2, "<p>8</p>");
-                shiftRight(1, "<p>4</p>");
-                shiftRight(0, "<p>2</p>");        
+                shiftRight();       
 
                 let nextSquare = openSquares(arr);
                 let randomNo = Math.floor(Math.random() * nextSquare.length);
