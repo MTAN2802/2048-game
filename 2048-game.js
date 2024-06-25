@@ -317,14 +317,13 @@ function shiftRight(){
                         arr[i+1].innerHTML = arr[i].innerHTML;
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
-
                     }
 
                     if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){ //If next tile is not empty and has the same number
                         arr[i].style.backgroundColor = "";
                         arr[i].innerHTML = "";
-                        arr[i+1].innerHTML = `<p>${tiles[x+1].number}</p>`
-                        arr[i+1].style.backgroundColor = `${tiles[x+1].hex}`
+                        arr[i+1].innerHTML = `<p>${tiles[x+1].number}</p>`;
+                        arr[i+1].style.backgroundColor = `${tiles[x+1].hex}`;
                     }
                 }
 
@@ -345,8 +344,8 @@ function shiftRight(){
                     if(arr[i+1].style.backgroundColor == "" && arr[i+2].innerHTML == arr[i].innerHTML){ //If the next tile is empty but the end tile equals the selected tile
                         arr[i].style.backgroundColor = "";
                         arr[i].innerHTML = "";
-                        arr[i+2].innerHTML = `<p>${tiles[x+1].number}</p>`
-                        arr[i+2].style.backgroundColor = `${tiles[x+1].hex}`
+                        arr[i+2].innerHTML = `<p>${tiles[x+1].number}</p>`;
+                        arr[i+2].style.backgroundColor = `${tiles[x+1].hex}`;
                     }
                     
                     else if (arr[i+1].style.backgroundColor != "" && arr[i+1].innerHTML == arr[i].innerHTML){ //If the next tile has the same number as the selected tile
@@ -422,42 +421,43 @@ function moveRight(event){
 }
 
 //Function to move left
-function shiftLeft(x, y){
-    for (i = 0; i < arr.length; i++){
-        if(arr[i].innerHTML == y){ //If the number in the target tile is "y"
-            if (i != 0 && i != 4 && i != 8 && i!= 12){ //Anything but the very right column
+function shiftLeft(){
+    for (i = 0; i < arr.length; i++){ //For each tile from left to right, top to bottom
+        if(arr[i].style.backgroundColor != ""){
+            if (i != 0 && i != 4 && i != 8 && i!= 12){
                 const veryRightColumn = [3, 7, 11, 15];
                 const secondRightColumn = [2, 6, 10, 14];
                 const secondLeftColumn = [1, 5, 9, 13];
+                const x = numInTile(arr[i].innerHTML);
 
                 if (secondLeftColumn.includes(i)){
                     if (arr[i-1].style.backgroundColor == ""){
+                        arr[i-1].style.backgroundColor = arr[i].style.backgroundColor;
+                        arr[i-1].innerHTML = arr[i].innerHTML;
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
-                        arr[i-1].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i-1].innerHTML = `<p>${tiles[x].number}</p>`;
                     }
 
                     if (arr[i-1].style.backgroundColor != "" && arr[i-1].innerHTML == arr[i].innerHTML){
                         arr[i].style.backgroundColor = "";
                         arr[i].innerHTML = "";
-                        arr[i-1].innerHTML = `<p>${tiles[x+1].number}</p>`
-                        arr[i-1].style.backgroundColor = `${tiles[x+1].hex}`
+                        arr[i-1].innerHTML = `<p>${tiles[x+1].number}</p>`;
+                        arr[i-1].style.backgroundColor = `${tiles[x+1].hex}`;
                     }
                 }
 
                 if (secondRightColumn.includes(i)) {
                     if(arr[i-1].style.backgroundColor == "" && arr[i-2].style.backgroundColor == ""){
+                        arr[i-2].style.backgroundColor = arr[i].style.backgroundColor;
+                        arr[i-2].innerHTML = arr[i].innerHTML;
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
-                        arr[i-2].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i-2].innerHTML = `<p>${tiles[x].number}</p>`;
                     }
                     else if (arr[i-1].style.backgroundColor == "" && arr[i-2].style.backgroundColor != "" && arr[i-2].innerHTML != arr[i].innerHTML){
+                        arr[i-1].style.backgroundColor = arr[i].style.backgroundColor;
+                        arr[i-1].innerHTML = arr[i].innerHTML;
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
-                        arr[i-1].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i-1].innerHTML = `<p>${tiles[x].number}</p>`;
                     }
 
                     if(arr[i-1].style.backgroundColor == "" && arr[i-2].innerHTML == arr[i].innerHTML){
@@ -477,10 +477,10 @@ function shiftLeft(x, y){
 
                 if (veryRightColumn.includes(i)) {
                     if(arr[i-1].style.backgroundColor == "" && arr[i-2].style.backgroundColor == "" && arr[i-3].style.backgroundColor == ""){
+                        arr[i-3].style.backgroundColor = arr[i].style.backgroundColor;
+                        arr[i-3].innerHTML = arr[i].innerHTML;
                         arr[i].style.backgroundColor = ``;
                         arr[i].innerHTML = ``;
-                        arr[i-3].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i-3].innerHTML = `<p>${tiles[x].number}</p>`;
                         
                     }
                     else if(arr[i-1].style.backgroundColor == "" && arr[i-2].style.backgroundColor == "" && arr[i-3].style.backgroundColor != "" && arr[i-3].innerHTML != arr[i].innerHTML){
@@ -525,17 +525,7 @@ function moveLeft(event){
     if (isThereAGame()){
         if (canItMoveLeft()){
             if (event.key == "a" || event.key == "A"){
-                shiftLeft(10,  "<p>2048</p>");
-                shiftLeft(9, "<p>1024</p>");
-                shiftLeft(8, "<p>512</p>");
-                shiftLeft(7, "<p>256</p>");
-                shiftLeft(6, "<p>128</p>");
-                shiftLeft(5, "<p>64</p>");
-                shiftLeft(4, "<p>32</p>");
-                shiftLeft(3, "<p>16</p>");
-                shiftLeft(2, "<p>8</p>");
-                shiftLeft(1, "<p>4</p>");
-                shiftLeft(0, "<p>2</p>"); 
+                shiftLeft(); 
 
                 let nextSquare = openSquares(arr);
                 let randomNo = Math.floor(Math.random() * nextSquare.length);
@@ -549,13 +539,60 @@ function moveLeft(event){
 }
 
 //Function to move down
-function shiftDown(x, y){
+function shiftDown(){
     for (i = arr.length-1; i >=0; i--){
-        if(arr[i].innerHTML == y){ //If the number in the target tile is "y"
+        if(arr[i].style.backgroundColor != ""){ //If the number in the target tile is "y"
             if (i != 12 && i != 13 && i != 14 && i != 15){ //Anything but the very right column
                 const veryTopColumn = [0, 1, 2, 3];
                 const secondTopColumn = [4, 5, 6, 7];
                 const secondBottomColumn = [8, 9, 10, 11];
+                const x = numInTile(arr[i].innerHTML);
+
+                if (secondBottomColumn.includes(i)){
+                    if (arr[i+4].style.backgroundColor == ""){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i+4].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i+4].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+
+                    if (arr[i+4].style.backgroundColor != "" && arr[i+4].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i+4].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i+4].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+                }
+                
+                if (secondTopColumn.includes(i)) {
+                    if(arr[i+4].style.backgroundColor == "" && arr[i+8].style.backgroundColor == ""){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i+8].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i+8].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+                    else if (arr[i+4].style.backgroundColor == "" && arr[i+8].style.backgroundColor != "" && arr[i+8].innerHTML != arr[i].innerHTML){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i+4].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i+4].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+
+                    if(arr[i+4].style.backgroundColor == "" && arr[i+8].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i+8].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i+8].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+                    else if (arr[i+4].style.backgroundColor != "" && arr[i+4].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i+4].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i+4].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+
+                }
+
 
                 if (veryTopColumn.includes(i)) {
                     if(arr[i+4].style.backgroundColor == "" && arr[i+8].style.backgroundColor == "" && arr[i+12].style.backgroundColor == ""){
@@ -598,50 +635,6 @@ function shiftDown(x, y){
                     }
                 }
 
-                if (secondTopColumn.includes(i)) {
-                    if(arr[i+4].style.backgroundColor == "" && arr[i+8].style.backgroundColor == ""){
-                        arr[i].style.backgroundColor = ``;
-                        arr[i].innerHTML = ``;
-                        arr[i+8].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i+8].innerHTML = `<p>${tiles[x].number}</p>`;
-                    }
-                    else if (arr[i+4].style.backgroundColor == "" && arr[i+8].style.backgroundColor != "" && arr[i+8].innerHTML != arr[i].innerHTML){
-                        arr[i].style.backgroundColor = ``;
-                        arr[i].innerHTML = ``;
-                        arr[i+4].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i+4].innerHTML = `<p>${tiles[x].number}</p>`;
-                    }
-
-                    if(arr[i+4].style.backgroundColor == "" && arr[i+8].innerHTML == arr[i].innerHTML){
-                        arr[i].style.backgroundColor = "";
-                        arr[i].innerHTML = "";
-                        arr[i+8].innerHTML = `<p>${tiles[x+1].number}</p>`
-                        arr[i+8].style.backgroundColor = `${tiles[x+1].hex}`
-                    }
-                    else if (arr[i+4].style.backgroundColor != "" && arr[i+4].innerHTML == arr[i].innerHTML){
-                        arr[i].style.backgroundColor = "";
-                        arr[i].innerHTML = "";
-                        arr[i+4].innerHTML = `<p>${tiles[x+1].number}</p>`
-                        arr[i+4].style.backgroundColor = `${tiles[x+1].hex}`
-                    }
-
-                }
-
-                if (secondBottomColumn.includes(i)){
-                    if (arr[i+4].style.backgroundColor == ""){
-                        arr[i].style.backgroundColor = ``;
-                        arr[i].innerHTML = ``;
-                        arr[i+4].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i+4].innerHTML = `<p>${tiles[x].number}</p>`;
-                    }
-
-                    if (arr[i+4].style.backgroundColor != "" && arr[i+4].innerHTML == arr[i].innerHTML){
-                        arr[i].style.backgroundColor = "";
-                        arr[i].innerHTML = "";
-                        arr[i+4].innerHTML = `<p>${tiles[x+1].number}</p>`
-                        arr[i+4].style.backgroundColor = `${tiles[x+1].hex}`
-                    }
-                }
                 
             }
         }
@@ -652,17 +645,7 @@ function moveDown(event){
     if (isThereAGame()){
         if (canItMoveDown()){
             if (event.key == "s" || event.key == "S"){
-                shiftDown(10,  "<p>2048</p>");
-                shiftDown(9, "<p>1024</p>");
-                shiftDown(8, "<p>512</p>");
-                shiftDown(7, "<p>256</p>");
-                shiftDown(6, "<p>128</p>");
-                shiftDown(5, "<p>64</p>");
-                shiftDown(4, "<p>32</p>");
-                shiftDown(3, "<p>16</p>");
-                shiftDown(2, "<p>8</p>");
-                shiftDown(1, "<p>4</p>");
-                shiftDown(0, "<p>2</p>");    
+                shiftDown();    
     
                 let nextSquare = openSquares(arr);
                 let randomNo = Math.floor(Math.random() * nextSquare.length);
@@ -674,13 +657,59 @@ function moveDown(event){
 }
 
 //Function to move up
-function shiftUp(x, y){
+function shiftUp(){
     for (i = 0; i < arr.length; i++){
-        if(arr[i].innerHTML == y){ //If the number in the target tile is "y"
+        if(arr[i].style.backgroundColor != ""){ //If the number in the target tile is "y"
             if (i != 0 && i != 1 && i != 2 && i!= 3){ //Anything but the very right column
                 const veryBottomColumn = [12, 13, 14, 15];
                 const secondTopColumn = [4, 5, 6, 7];
                 const secondBottomColumn = [8, 9, 10, 11];
+                const x = numInTile(arr[i].innerHTML)
+
+                if (secondTopColumn.includes(i)){
+                    if (arr[i-4].style.backgroundColor == ""){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i-4].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i-4].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+
+                    if (arr[i-4].style.backgroundColor != "" && arr[i-4].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i-4].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i-4].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+                }
+
+                if (secondBottomColumn.includes(i)) {
+                    if(arr[i-4].style.backgroundColor == "" && arr[i-8].style.backgroundColor == ""){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i-8].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i-8].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+                    else if (arr[i-4].style.backgroundColor == "" && arr[i-8].style.backgroundColor != "" && arr[i-8].innerHTML != arr[i].innerHTML){
+                        arr[i].style.backgroundColor = ``;
+                        arr[i].innerHTML = ``;
+                        arr[i-4].style.backgroundColor = `${tiles[x].hex}`;
+                        arr[i-4].innerHTML = `<p>${tiles[x].number}</p>`;
+                    }
+
+                    if(arr[i-4].style.backgroundColor == "" && arr[i-8].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i-8].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i-8].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+                    else if (arr[i-4].style.backgroundColor != "" && arr[i-4].innerHTML == arr[i].innerHTML){
+                        arr[i].style.backgroundColor = "";
+                        arr[i].innerHTML = "";
+                        arr[i-4].innerHTML = `<p>${tiles[x+1].number}</p>`
+                        arr[i-4].style.backgroundColor = `${tiles[x+1].hex}`
+                    }
+
+                }
 
                 if (veryBottomColumn.includes(i)) {
                     if(arr[i-4].style.backgroundColor == "" && arr[i-8].style.backgroundColor == "" && arr[i-12].style.backgroundColor == ""){
@@ -721,53 +750,7 @@ function shiftUp(x, y){
                         arr[i-4].innerHTML = `<p>${tiles[x+1].number}</p>`
                         arr[i-4].style.backgroundColor = `${tiles[x+1].hex}`
                     }
-                }
-
-                if (secondBottomColumn.includes(i)) {
-                    if(arr[i-4].style.backgroundColor == "" && arr[i-8].style.backgroundColor == ""){
-                        arr[i].style.backgroundColor = ``;
-                        arr[i].innerHTML = ``;
-                        arr[i-8].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i-8].innerHTML = `<p>${tiles[x].number}</p>`;
-                    }
-                    else if (arr[i-4].style.backgroundColor == "" && arr[i-8].style.backgroundColor != "" && arr[i-8].innerHTML != arr[i].innerHTML){
-                        arr[i].style.backgroundColor = ``;
-                        arr[i].innerHTML = ``;
-                        arr[i-4].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i-4].innerHTML = `<p>${tiles[x].number}</p>`;
-                    }
-
-                    if(arr[i-4].style.backgroundColor == "" && arr[i-8].innerHTML == arr[i].innerHTML){
-                        arr[i].style.backgroundColor = "";
-                        arr[i].innerHTML = "";
-                        arr[i-8].innerHTML = `<p>${tiles[x+1].number}</p>`
-                        arr[i-8].style.backgroundColor = `${tiles[x+1].hex}`
-                    }
-                    else if (arr[i-4].style.backgroundColor != "" && arr[i-4].innerHTML == arr[i].innerHTML){
-                        arr[i].style.backgroundColor = "";
-                        arr[i].innerHTML = "";
-                        arr[i-4].innerHTML = `<p>${tiles[x+1].number}</p>`
-                        arr[i-4].style.backgroundColor = `${tiles[x+1].hex}`
-                    }
-
-                }
-
-                if (secondTopColumn.includes(i)){
-                    if (arr[i-4].style.backgroundColor == ""){
-                        arr[i].style.backgroundColor = ``;
-                        arr[i].innerHTML = ``;
-                        arr[i-4].style.backgroundColor = `${tiles[x].hex}`;
-                        arr[i-4].innerHTML = `<p>${tiles[x].number}</p>`;
-                    }
-
-                    if (arr[i-4].style.backgroundColor != "" && arr[i-4].innerHTML == arr[i].innerHTML){
-                        arr[i].style.backgroundColor = "";
-                        arr[i].innerHTML = "";
-                        arr[i-4].innerHTML = `<p>${tiles[x+1].number}</p>`
-                        arr[i-4].style.backgroundColor = `${tiles[x+1].hex}`
-                    }
-                }
-                
+                }   
             }
         }
     }
@@ -777,17 +760,7 @@ function moveUp(event){
     if (isThereAGame()){
         if (canItMoveUp()){
             if (event.key == "w" || event.key == "W"){
-                shiftUp(10,  "<p>2048</p>");
-                shiftUp(9, "<p>1024</p>");
-                shiftUp(8, "<p>512</p>");
-                shiftUp(7, "<p>256</p>");
-                shiftUp(6, "<p>128</p>");
-                shiftUp(5, "<p>64</p>");
-                shiftUp(4, "<p>32</p>");
-                shiftUp(3, "<p>16</p>");
-                shiftUp(2, "<p>8</p>");
-                shiftUp(1, "<p>4</p>");
-                shiftUp(0, "<p>2</p>"); 
+                shiftUp();
 
                 let nextSquare = openSquares(arr);
                 let randomNo = Math.floor(Math.random() * nextSquare.length);
