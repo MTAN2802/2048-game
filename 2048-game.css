@@ -112,59 +112,9 @@ div p{
     }
 }
 
-#thirteen, #fourteen, #fifteen, #sixteen{
+.gamegrid div:nth-child(n+13){
     border-bottom: solid black;
 }
-#four, #eight, #twelve, #sixteen{
+.gamegrid div:nth-child(4n+0){
     border-right: solid black;
 }
-
-#one{
-    grid-area: one;
-}
-#two{
-    grid-area: two;
-}
-#three{
-    grid-area: three;
-}
-#four{
-    grid-area: four;
-}
-#five{
-    grid-area: five;
-}
-#six{
-    grid-area: six;
-}
-#seven{
-    grid-area: seven;
-}
-#eight{
-    grid-area: eight;
-}
-#nine{
-    grid-area: nine;
-}
-#ten{
-    grid-area: ten;
-}
-#eleven{
-    grid-area: eleven;
-}
-#twelve{
-    grid-area: twelve;
-}
-#thirteen{
-    grid-area: thirteen;
-}
-#fourteen{
-    grid-area: fourteen;
-}
-#fifteen{
-    grid-area: fifteen;
-}
-#sixteen{
-    grid-area: sixteen;
-}
-

@@ -1,20 +1,20 @@
-const one = document.getElementById("one");
-const two = document.getElementById("two");
-const three = document.getElementById("three");
-const four = document.getElementById("four");
-const five = document.getElementById("five");
-const six = document.getElementById("six");
-const seven = document.getElementById("seven");
-const eight = document.getElementById("eight");
-const nine = document.getElementById("nine");
-const ten = document.getElementById("ten");
-const eleven = document.getElementById("eleven");
-const twelve = document.getElementById("twelve");
-const thirteen = document.getElementById("thirteen");
-const fourteen = document.getElementById("fourteen");
-const fifteen = document.getElementById("fifteen");
-const sixteen = document.getElementById("sixteen");
-const arr = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen];
+const tile1 = document.getElementById(1);
+const tile2 = document.getElementById(2);
+const tile3 = document.getElementById(3);
+const tile4 = document.getElementById(4);
+const tile5 = document.getElementById(5);
+const tile6 = document.getElementById(6);
+const tile7 = document.getElementById(7);
+const tile8 = document.getElementById(8);
+const tile9 = document.getElementById(9);
+const tile10 = document.getElementById(10);
+const tile11 = document.getElementById(11);
+const tile12 = document.getElementById(12);
+const tile13 = document.getElementById(13);
+const tile14 = document.getElementById(14);
+const tile15 = document.getElementById(15);
+const tile16 = document.getElementById(16);
+const arr = [tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9, tile10, tile11, tile12, tile13, tile14, tile15, tile16];
 
 const tiles = [
     {number: 2,
@@ -108,7 +108,7 @@ function clearGame() {
 const startButton = document.getElementById('start');
 startButton.addEventListener("click", initiateGame);
 document.addEventListener("keydown", (e) => {
-    if (e.key == 't' || e.key == 't'){
+    if (e.key == 't' || e.key == 'T'){
         initiateGame();
     }
 })
@@ -406,7 +406,7 @@ function shiftRight(){
 function moveRight(event){
     if (isThereAGame()){
         if(canItMoveRight()){
-            if (event.key == "d" || event.key == "D"){
+            if (event.code === "KeyD"|| event.key === "ArrowRight"){
                 shiftRight();       
 
                 let nextSquare = openSquares(arr);
@@ -524,7 +524,7 @@ function shiftLeft(){
 function moveLeft(event){
     if (isThereAGame()){
         if (canItMoveLeft()){
-            if (event.key == "a" || event.key == "A"){
+            if (event.code === "KeyA" || event.key === "ArrowLeft"){
                 shiftLeft(); 
 
                 let nextSquare = openSquares(arr);
@@ -644,7 +644,7 @@ function shiftDown(){
 function moveDown(event){
     if (isThereAGame()){
         if (canItMoveDown()){
-            if (event.key == "s" || event.key == "S"){
+            if (event.code === "KeyS" || event.key === "ArrowDown"){
                 shiftDown();    
     
                 let nextSquare = openSquares(arr);
@@ -759,7 +759,7 @@ function shiftUp(){
 function moveUp(event){
     if (isThereAGame()){
         if (canItMoveUp()){
-            if (event.key == "w" || event.key == "W"){
+            if (event.code === "KeyW" || event.key === "ArrowUp"){
                 shiftUp();
 
                 let nextSquare = openSquares(arr);
