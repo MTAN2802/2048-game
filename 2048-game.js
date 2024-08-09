@@ -81,20 +81,26 @@ function isThereAGame(){
     }
 }
 
+function add2TileOr4Tile(){
+    let between1and10 = Math.floor(Math.random()* 10);
+    if (between1and10 <= 7) {
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
+
 function initiateGame(){
-    let test = 14;
     let randomNo = Math.floor(Math.random() * 16);
     if (isThereAGame()){
         alert('There is already an active game!')
+        return;
     }
-    else{
-        for (i=0; i < arr.length; i++){
-            if (test == i){
-                arr[i].style.backgroundColor = `${tiles[0].hex}`;
-                arr[i].innerHTML = `<p>${tiles[0].number}</p>`;
-            }
-        }
-    }
+    let tileToAdd = add2TileOr4Tile();
+    arr[randomNo].style.backgroundColor = `${tiles[tileToAdd].hex}`;
+    arr[randomNo].innerHTML = `<p>${tiles[tileToAdd].number}</p>`;
 }
 
 function clearGame() {
@@ -107,19 +113,11 @@ function clearGame() {
 
 const startButton = document.getElementById('start');
 startButton.addEventListener("click", initiateGame);
-document.addEventListener("keydown", (e) => {
-    if (e.key == 't' || e.key == 'T'){
-        initiateGame();
-    }
-})
+
 
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener("click", clearGame);
-/*document.addEventListener("keydown", (e) => {
-    if (e.key == "r" || e.key == "R"){
-        clearGame()
-    }
-});*/
+
 
 function openSquares(arr) {
     let available = [];
@@ -131,7 +129,6 @@ function openSquares(arr) {
     return available;
 }
 
-//Functions to determine if tiles can be moved in each direction
 function canItMoveRight(){
     let counter = 0;
     for (i = arr.length-1; i >=0; i--){
@@ -167,7 +164,7 @@ function canItMoveRight(){
                 }
         }
     }
-    //console.log(`Right counter: ${counter}`)
+
     if (counter != 0) return true;
     else return false;
 }
@@ -207,7 +204,7 @@ function canItMoveLeft(){
                 }
         }
     }
-    //console.log(`Left counter: ${counter}`)
+
     if (counter != 0) return true;
     else return false;
 }
@@ -247,7 +244,7 @@ function canItMoveUp(){
                 }
         }
     }
-    //console.log(`Up counter: ${counter}`)
+
     if (counter != 0) return true;
     else return false;
 }
@@ -287,12 +284,12 @@ function canItMoveDown(){
                 }
         }
     }
-    //console.log(`Down counter: ${counter}`)
+
     if (counter != 0) return true;
     else return false;
 }
 
-//Function to see which number is in selected tile
+
 function numInTile(x){
     let n = 0;
     while (x != tiles[n].numCode){
@@ -301,7 +298,6 @@ function numInTile(x){
     return n
 }
 
-//Function to move right
 function shiftRight(){
     for (i = arr.length-1; i >=0 ; i--){
         if(arr[i].style.backgroundColor != ""){ //If the tile is not empty
