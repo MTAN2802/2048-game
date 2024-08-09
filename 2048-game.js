@@ -158,6 +158,7 @@ function canLastSetTilesMerge(lastSet, numTillPreviousTile){
         return false;
     }
 }
+
 function compareArrays (array1, array2){
     if (array1.length === array2.length && array1.every((element, index) => element === array2[index])){
         return true;
