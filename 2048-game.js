@@ -165,7 +165,7 @@ function compareArrays (array1, array2){
     }
 }
 
-function willItMoveLeftToRight(){
+function canItMoveRight(){
     let startingColumn = [0, 4, 8, 12];
     let endingColumn = [3, 7, 11, 15];
     let nextRightTile = 1;
@@ -188,123 +188,69 @@ function willItMoveLeftToRight(){
 }
 
 function canItMoveLeft(){
-    let counter = 0;
-    for (i = arr.length-1; i >=0; i--){
-        if (arr[i].style.backgroundColor != ""){
-            if (i == 0 || i == 4 || i == 8 || i == 13){
-                let edges = [0,4,8,12];
-                edges.forEach((edgeNo) => {
-                    if (arr[edgeNo + 3].style.backgroundColor != "" && arr[edgeNo + 3].innerHTML == arr[edgeNo + 2].innerHTML){
-                        counter++;
-                    } 
-                    if (arr[edgeNo + 3].style.backgroundColor != "" && arr[edgeNo + 3].innerHTML == arr[edgeNo + 1].innerHTML && arr[edgeNo + 2].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo + 3].style.backgroundColor != "" && arr[edgeNo + 3].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo +  2].style.backgroundColor == "" && arr[edgeNo + 1].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo + 2].style.backgroundColor != "" && arr[edgeNo + 2].innerHTML == arr[edgeNo + 1].innerHTML){
-                        counter++;
-                    } 
-                    if (arr[edgeNo + 2].style.backgroundColor != "" && arr[edgeNo + 2].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo + 1].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo + 1].style.backgroundColor != "" && arr[edgeNo + 1].innerHTML == arr[edgeNo].innerHTML){
-                        counter++;
-                    } 
-                })
-                    
+    let startingColumn = [3, 7, 11, 15];
+    let endingColumn = [0, 4, 8, 12];
+    let nextLeftTile = -1;
+    
+    if (!canItMove(startingColumn, nextLeftTile)){
+        for (i = -1; i >= -3; i--){
+            currentColumn = nextSetOfTiles(startingColumn, i)
+            
+            if (compareArrays(currentColumn, endingColumn)){
+                return canLastSetTilesMerge(endingColumn, -1);
             }
-            if(i != 0 && i != 4 && i != 8 && i != 12){
-                if (arr[i-1].style.backgroundColor == "" || arr[i-1].innerHTML == arr[i].innerHTML){
-                        counter++;
-                        }  
-                }
+            else if(canItMove(currentColumn, nextLeftTile)){
+                return true;
+            }
         }
     }
-
-    if (counter != 0) return true;
-    else return false;
-}
-
-function canItMoveUp(){
-    let counter = 0;
-    for (i = arr.length-1; i >=0; i--){
-        if (arr[i].style.backgroundColor != ""){
-            if (i == 0 || i == 1 || i == 2 || i == 3){
-                let edges = [0,1,2,3];
-                edges.forEach((edgeNo) => {
-                    if (arr[edgeNo + 12].style.backgroundColor != "" && arr[edgeNo + 12].innerHTML == arr[edgeNo + 8].innerHTML){
-                        counter++;
-                    } 
-                    if (arr[edgeNo + 12].style.backgroundColor != "" && arr[edgeNo + 12].innerHTML == arr[edgeNo + 4].innerHTML && arr[edgeNo + 8].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo + 12].style.backgroundColor != "" && arr[edgeNo + 12].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo +  8].style.backgroundColor == "" && arr[edgeNo + 4].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo + 8].style.backgroundColor != "" && arr[edgeNo + 8].innerHTML == arr[edgeNo + 4].innerHTML){
-                        counter++;
-                    } 
-                    if (arr[edgeNo + 8].style.backgroundColor != "" && arr[edgeNo + 8].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo + 4].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo + 4].style.backgroundColor != "" && arr[edgeNo + 4].innerHTML == arr[edgeNo].innerHTML){
-                        counter++;
-                    } 
-                })
-                    
-            }
-            if(i != 0 && i != 1 && i != 2 && i != 3){
-                if (arr[i-4].style.backgroundColor == "" || arr[i-4].innerHTML == arr[i].innerHTML){
-                        counter++;
-                        }  
-                }
-        }
+    else{
+        return true;
     }
-
-    if (counter != 0) return true;
-    else return false;
 }
 
 function canItMoveDown(){
-    let counter = 0;
-    for (i = arr.length-1; i >=0; i--){
-        if (arr[i].style.backgroundColor != ""){
-            if (i == 12 || i == 13 || i == 14 || i == 15){
-                let edges = [12,13,14,15];
-                edges.forEach((edgeNo) => {
-                    if (arr[edgeNo - 12].style.backgroundColor != "" && arr[edgeNo - 12].innerHTML == arr[edgeNo - 8].innerHTML){
-                        counter++;
-                    } 
-                    if (arr[edgeNo - 12].style.backgroundColor != "" && arr[edgeNo - 12].innerHTML == arr[edgeNo - 4].innerHTML && arr[edgeNo - 8].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo - 12].style.backgroundColor != "" && arr[edgeNo - 12].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo -  8].style.backgroundColor == "" && arr[edgeNo - 4].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo - 8].style.backgroundColor != "" && arr[edgeNo - 8].innerHTML == arr[edgeNo - 4].innerHTML){
-                        counter++;
-                    } 
-                    if (arr[edgeNo - 8].style.backgroundColor != "" && arr[edgeNo - 8].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo - 4].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo - 4].style.backgroundColor != "" && arr[edgeNo - 4].innerHTML == arr[edgeNo].innerHTML){
-                        counter++;
-                    } 
-                })
-                    
+    let startingRow = [0, 1, 2, 3];
+    let endingRow = [12, 13, 14, 15];
+    let nextTileUp = 4;
+    
+    if (!canItMove(startingRow, nextTileUp)){
+        for (i = 4; i <= 12; i+=4){
+            currentRow = nextSetOfTiles(startingRow, i)
+            
+            if (compareArrays(currentRow, endingRow)){
+                return canLastSetTilesMerge(endingRow, 4);
             }
-            if(i != 12 && i != 13 && i != 14 && i != 15){
-                if (arr[i+4].style.backgroundColor == "" || arr[i+4].innerHTML == arr[i].innerHTML){
-                        counter++;
-                        }  
-                }
+            else if(canItMove(currentRow, nextTileUp)){
+                return true;
+            }
         }
     }
+    else{
+        return true;
+    }
+}
 
-    if (counter != 0) return true;
-    else return false;
+function canItMoveUp(){
+    let startingRow = [12, 13, 14, 15];
+    let endingRow = [0, 1, 2, 3];
+    let nextTileDown = -4;
+    
+    if (!canItMove(startingRow, nextTileDown)){
+        for (i = -4; i >= -12; i-=4){
+            currentRow = nextSetOfTiles(startingRow, i)
+            
+            if (compareArrays(currentRow, endingRow)){
+                return canLastSetTilesMerge(endingRow, -4);
+            }
+            else if(canItMove(currentRow, nextTileDown)){
+                return true;
+            }
+        }
+    }
+    else{
+        return true;
+    }
 }
 
 
