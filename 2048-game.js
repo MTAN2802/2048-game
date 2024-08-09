@@ -76,7 +76,7 @@ const tiles = [
 //Functions for the buttons
 function isThereAGame(){   
     for (i=0; i < arr.length; i++){
-        if (arr[i].innerHTML.includes("2") ) {
+        if (arr[i].innerHTML) {
             return true}
     }
 }
@@ -129,44 +129,61 @@ function openSquares(arr) {
     return available;
 }
 
-function canItMoveRight(){
-    let counter = 0;
-    for (i = arr.length-1; i >=0; i--){
-        if (arr[i].style.backgroundColor != ""){
-            if (i == 3 || i == 7 || i == 11 || i == 15){
-                let edges = [3,7,11,15];
-                edges.forEach((edgeNo) => {
-                    if (arr[edgeNo - 3].style.backgroundColor != "" && arr[edgeNo - 3].innerHTML == arr[edgeNo - 2].innerHTML){
-                        counter++;
-                    } 
-                    if (arr[edgeNo - 3].style.backgroundColor != "" && arr[edgeNo - 3].innerHTML == arr[edgeNo - 1].innerHTML && arr[edgeNo - 2].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo - 3].style.backgroundColor != "" && arr[edgeNo - 3].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo - 2].style.backgroundColor == "" && arr[edgeNo - 1].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo - 2].style.backgroundColor != "" && arr[edgeNo - 2].innerHTML == arr[edgeNo - 1].innerHTML){
-                        counter++;
-                    } 
-                    if (arr[edgeNo - 2].style.backgroundColor != "" && arr[edgeNo - 2].innerHTML == arr[edgeNo].innerHTML && arr[edgeNo - 1].style.backgroundColor == "") {
-                        counter++;
-                    }
-                    if (arr[edgeNo - 1].style.backgroundColor != "" && arr[edgeNo - 1].innerHTML == arr[edgeNo].innerHTML){
-                        counter++;
-                    } 
-                })
-                    
+function nextSetOfTiles(givenTiles, numForNextEntry){
+    let newTileArray = [];
+    for (let tile of givenTiles){
+        newTileArray.push(tile + numForNextEntry)
+    }
+    return newTileArray;
+}
+
+function canItMove(startingPosition, nextTilePosition){
+    for (let tile of startingPosition){
+        if (arr[tile].style.backgroundColor !== ""){
+            let tileAfter = tile + nextTilePosition;
+            if (arr[tileAfter].style.backgroundColor === "" || arr[tileAfter].innerHTML === arr[tile].innerHTML){
+                return true;
             }
-            if(i != 3 && i != 7 && i != 11 && i != 15){
-                if (arr[i+1].style.backgroundColor == "" || arr[i+1].innerHTML == arr[i].innerHTML){
-                        counter++;
-                        }  
-                }
         }
     }
+}
 
-    if (counter != 0) return true;
-    else return false;
+function canLastSetTilesMerge(lastSet, numTillPreviousTile){
+    for (let lastTile of lastSet){
+        if (arr[lastTile].style.backgroundColor !== ""){
+            if (arr[lastTile].innerHTML === arr[lastTile - numTillPreviousTile].innerHTML){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+function compareArrays (array1, array2){
+    if (array1.length === array2.length && array1.every((element, index) => element === array2[index])){
+        return true;
+    }
+}
+
+function willItMoveLeftToRight(){
+    let startingColumn = [0, 4, 8, 12];
+    let endingColumn = [3, 7, 11, 15];
+    let nextRightTile = 1;
+    
+    if (!canItMove(startingColumn, nextRightTile)){
+        for (i = 1; i <= 3; i++){
+            currentColumn = nextSetOfTiles(startingColumn, i)
+            
+            if (compareArrays(currentColumn, endingColumn)){
+                return canLastSetTilesMerge(endingColumn, 1);
+            }
+            else if(canItMove(currentColumn, nextRightTile)){
+                return true;
+            }
+        }
+    }
+    else{
+        return true;
+    }
 }
 
 function canItMoveLeft(){
