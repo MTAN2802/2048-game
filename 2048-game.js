@@ -79,7 +79,6 @@ function initiateGame() {
   if (isThereAGame()) {
     return alert("There is already an active game!");
   }
-
   let tileToAdd = addTile();
   tile.get(randomNo).position.style.backgroundColor = tileValue.get(tileToAdd).hex;
   tile.get(randomNo).position.innerHTML = `<p>${tileValue.get(tileToAdd).value}</p>`;
@@ -120,16 +119,25 @@ function nextSetOfTiles(givenTiles, numForNextEntry) {
 
 function canItMove(startingPosition, nextTilePosition) {
   for (let value of startingPosition) {
-    if (arr[value].style.backgroundColor !== "") {
-      let tileAfter = tile + nextTilePosition;
+    if (tile.get(value).currentValue === 0){
+      let tileAfter = value + nextTilePosition;
       if (
-        arr[tileAfter].style.backgroundColor === "" ||
-        arr[tileAfter].innerHTML === arr[tile].innerHTML
+        tile.get(tileAfter).currentValue === 0 ||
+        tile.get(tileAfter).currentValue === tile.get(value).currentValue
       ) {
         return true;
       }
     }
   }
+}
+
+function isEmpty(set){
+  for (let target of set){
+    if (tile.get(target).currentValue !== 0){
+      return false;
+    }
+  }
+  return true;
 }
 
 function canLastSetTilesMerge(lastSet, numTillPreviousTile) {
