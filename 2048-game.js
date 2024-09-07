@@ -14,41 +14,6 @@ function updateCurrentValue(old, updated){
   return updatedObject;
 }
 
-/*const tile1 = document.getElementById(1);
-const tile2 = document.getElementById(2);
-const tile3 = document.getElementById(3);
-const tile4 = document.getElementById(4);
-const tile5 = document.getElementById(5);
-const tile6 = document.getElementById(6);
-const tile7 = document.getElementById(7);
-const tile8 = document.getElementById(8);
-const tile9 = document.getElementById(9);
-const tile10 = document.getElementById(10);
-const tile11 = document.getElementById(11);
-const tile12 = document.getElementById(12);
-const tile13 = document.getElementById(13);
-const tile14 = document.getElementById(14);
-const tile15 = document.getElementById(15);
-const tile16 = document.getElementById(16);
-const arr = [
-  tile1,
-  tile2,
-  tile3,
-  tile4,
-  tile5,
-  tile6,
-  tile7,
-  tile8,
-  tile9,
-  tile10,
-  tile11,
-  tile12,
-  tile13,
-  tile14,
-  tile15,
-  tile16,
-];*/
-
 const tileValue = new Map();
 tileValue.set(2, { hex: "#E6E6FA", value: 2 });
 tileValue.set(4, { hex: "#FFB7C5", value: 4 });
@@ -96,7 +61,7 @@ function initiateGame() {
   let tileToAdd = addTile();
   tile.get(randomNo).position.style.backgroundColor = tileValue.get(tileToAdd).hex;
   tile.get(randomNo).position.innerHTML = `<p>${tileValue.get(tileToAdd).value}</p>`;
-  tile.set(randomNo, updateCurrentValue(tile.get(randomNo), tileToAdd));
+  updateCurrentValue(tile.get(randomNo), tileToAdd);
 }
 
 function clearGame() {
@@ -184,7 +149,21 @@ function shift(direction, iterator, currentLineTiles){
     case 'right':
       currentLineTiles = [4,3,2,1];
       iterator = 4;
+      break;
+    case 'left':
+      currentLineTiles = [1,2,3,4];
+      iterator = 4;
+      break;
+    case 'down':
+      currentLineTiles = [13,9,5,1];
+      iterator = 1;
+      break;
+    case 'up':
+      currentLineTiles = [1,5,9,13];
+      iterator = 1;
+      break;
   }
+
   let line = 1
   while(line <= 4){
     for (i=1; i <=3; i++){
@@ -193,177 +172,30 @@ function shift(direction, iterator, currentLineTiles){
         while(!isEmpty(currentLineTiles[tileToMerge]) && !matchingTiles(currentLineTiles[i], currentLineTiles[tileToMerge])){
           tileToMerge++;
         }
-      if(isEmpty(currentLineTiles[tileToMerge])){
-        tile.get(currentLineTiles[tileToMerge]).position.style.backgroundColor = tile.get(currentLineTiles[i]).position.style.backgroundColor;
-        tile.get(currentLineTiles[tileToMerge]).position.innerHTML = tile.get(currentLineTiles[i]).position.innerHTML;
-        updateCurrentValue(tile.get(currentLineTiles[tileToMerge]), tile.get(currentLineTiles[i]).currentValue)
+        if(isEmpty(currentLineTiles[tileToMerge])){
+          tile.get(currentLineTiles[tileToMerge]).position.style.backgroundColor = tile.get(currentLineTiles[i]).position.style.backgroundColor;
+          tile.get(currentLineTiles[tileToMerge]).position.innerHTML = tile.get(currentLineTiles[i]).position.innerHTML;
+          updateCurrentValue(tile.get(currentLineTiles[tileToMerge]), tile.get(currentLineTiles[i]).currentValue)
 
-        tile.get(currentLineTiles[i]).position.style.backgroundColor = "";
-        tile.get(currentLineTiles[i]).position.innerHTML = "";
-        updateCurrentValue(tile.get(currentLineTiles[i]), 0);
-        }
-      else if(matchingTiles(currentLineTiles[i], currentLineTiles[tileToMerge])){
-        tile.get(currentLineTiles[tileToMerge]).position.style.backgroundColor = tileValue.get((tile.get(currentLineTiles[i]).currentValue * 2)).hex
-        tile.get(currentLineTiles[tileToMerge]).position.innerHTML = `<p>${tileValue.get((tile.get(currentLineTiles[i]).currentValue * 2)).value}</p>`;
-        updateCurrentValue(tile.get(currentLineTiles[tileToMerge]), tile.get(currentLineTiles[i]).currentValue * 2)
+          tile.get(currentLineTiles[i]).position.style.backgroundColor = "";
+          tile.get(currentLineTiles[i]).position.innerHTML = "";
+          updateCurrentValue(tile.get(currentLineTiles[i]), 0);
+          }
+        if(i !== tileToMerge && matchingTiles(currentLineTiles[i], currentLineTiles[tileToMerge])){
+          tile.get(currentLineTiles[tileToMerge]).position.style.backgroundColor = tileValue.get((tile.get(currentLineTiles[i]).currentValue * 2)).hex
+          tile.get(currentLineTiles[tileToMerge]).position.innerHTML = `<p>${tileValue.get((tile.get(currentLineTiles[i]).currentValue * 2)).value}</p>`;
+          updateCurrentValue(tile.get(currentLineTiles[tileToMerge]), tile.get(currentLineTiles[i]).currentValue * 2)
 
-        tile.get(currentLineTiles[i]).position.style.backgroundColor = "";
-        tile.get(currentLineTiles[i]).position.innerHTML = "";
-        updateCurrentValue(tile.get(currentLineTiles[i]), 0);
-        }
+          tile.get(currentLineTiles[i]).position.style.backgroundColor = "";
+          tile.get(currentLineTiles[i]).position.innerHTML = "";
+          updateCurrentValue(tile.get(currentLineTiles[i]), 0);
+          }
       }
     }
     currentLineTiles = currentLineTiles.map((val) => val + iterator);
     line++;
-    console.log(`Line: ${line}; currentLineTiles: ${currentLineTiles}`)
   }
 }
-
-/*function shiftRight(direction, startingLine, endingLine) {
-  
-  for (let i of excludingEndingLine.reverse()) {
-    if (!isEmpty(i)) {
-      
-      const lineBeforeLast = endingLine.map((value) => value - 1);
-      const x = numInTile(tile.get(i).currentValue);
-
-        if (lineBeforeLast.includes(i)) {
-          //If the selected tile is in the second right column
-          if (arr[i + 1].style.backgroundColor == "") {
-            //If the very right column is empty
-            arr[i + 1].style.backgroundColor = arr[i].style.backgroundColor;
-            arr[i + 1].innerHTML = arr[i].innerHTML;
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-          }
-
-          if (
-            arr[i + 1].style.backgroundColor != "" &&
-            arr[i + 1].innerHTML == arr[i].innerHTML
-          ) {
-            //If next tile is not empty and has the same number
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 1].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 1].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-
-        if (secondLeftColumn.includes(i)) {
-          //If the selected tile is in the second column to the left
-          if (
-            arr[i + 1].style.backgroundColor == "" &&
-            arr[i + 2].style.backgroundColor == ""
-          ) {
-            //If the next two tiles are empty
-            arr[i + 2].style.backgroundColor = arr[i].style.backgroundColor;
-            arr[i + 2].innerHTML = arr[i].innerHTML;
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-          } else if (
-            arr[i + 1].style.backgroundColor == "" &&
-            arr[i + 2].style.backgroundColor != "" &&
-            arr[i + 2].innerHTML != arr[i].innerHTML
-          ) {
-            //If the next tile is empty but the end tile has a different number
-            arr[i + 1].style.backgroundColor = arr[i].style.backgroundColor;
-            arr[i + 1].innerHTML = arr[i].innerHTML;
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-          }
-
-          if (
-            arr[i + 1].style.backgroundColor == "" &&
-            arr[i + 2].innerHTML == arr[i].innerHTML
-          ) {
-            //If the next tile is empty but the end tile equals the selected tile
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 2].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 2].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i + 1].style.backgroundColor != "" &&
-            arr[i + 1].innerHTML == arr[i].innerHTML
-          ) {
-            //If the next tile has the same number as the selected tile
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 1].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 1].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-
-        if (veryLeftColumn.includes(i)) {
-          //If the selected column is in the very left column
-          if (
-            arr[i + 1].style.backgroundColor == "" &&
-            arr[i + 2].style.backgroundColor == "" &&
-            arr[i + 3].style.backgroundColor == ""
-          ) {
-            // If all three next tiles are empty
-            arr[i + 3].style.backgroundColor = arr[i].style.backgroundColor;
-            arr[i + 3].innerHTML = arr[i].innerHTML;
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-          } else if (
-            arr[i + 1].style.backgroundColor == "" &&
-            arr[i + 2].style.backgroundColor == "" &&
-            arr[i + 3].style.backgroundColor != "" &&
-            arr[i + 3].innerHTML != arr[i].innerHTML
-          ) {
-            // If the next two tiles are empty and the last column tile has a different number
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i + 2].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i + 2].innerHTML = `<p>${tiles[x].number}</p>`;
-          } else if (
-            arr[i + 1].style.backgroundColor == "" &&
-            arr[i + 2].style.backgroundColor != "" &&
-            arr[i + 2].innerHTML != arr[i].innerHTML
-          ) {
-            //If the next tile is empty but the tile after has a different number
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i + 1].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i + 1].innerHTML = `<p>${tiles[x].number}</p>`;
-          }
-
-          if (
-            arr[i + 1].style.backgroundColor == "" &&
-            arr[i + 2].style.backgroundColor == "" &&
-            arr[i + 3].innerHTML == arr[i].innerHTML
-          ) {
-            //If the next two tiles are empty and the last tile has the same number
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 3].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 3].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i + 1].style.backgroundColor == "" &&
-            arr[i + 2].style.backgroundColor != "" &&
-            arr[i + 2].innerHTML == arr[i].innerHTML
-          ) {
-            //If the next tile is empty but the tile after has the same number
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 2].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 2].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i + 1].style.backgroundColor != "" &&
-            arr[i + 1].innerHTML == arr[i].innerHTML
-          ) {
-            //If the next tile has the same number
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 1].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 1].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-      
-    }
-  }
-}*/
-
 
 function moveRight(event) {
   if (isThereAGame()) {
@@ -374,145 +206,10 @@ function moveRight(event) {
         let nextSquare = openSquares();
         let randomNo = Math.floor(Math.random() * nextSquare.length);
         let newTile = addTile();
-
     
         tile.get(nextSquare[randomNo]).position.style.backgroundColor = `${tileValue.get(newTile).hex}`;
         tile.get(nextSquare[randomNo]).position.innerHTML = `<p>${tileValue.get(newTile).value}</p>`;
-        updateCurrentValue(tile.get(nextSquare[randomNo]), addTile())
-        console.log(tile.get(nextSquare[randomNo]))
-      }
-    }
-  }
-}
-
-//Function to move left
-function shiftLeft() {
-  for (i = 0; i < arr.length; i++) {
-    //For each tile from left to right, top to bottom
-    if (arr[i].style.backgroundColor != "") {
-      if (i != 0 && i != 4 && i != 8 && i != 12) {
-        const veryRightColumn = [3, 7, 11, 15];
-        const secondRightColumn = [2, 6, 10, 14];
-        const secondLeftColumn = [1, 5, 9, 13];
-        const x = numInTile(arr[i].innerHTML);
-
-        if (secondLeftColumn.includes(i)) {
-          if (arr[i - 1].style.backgroundColor == "") {
-            arr[i - 1].style.backgroundColor = arr[i].style.backgroundColor;
-            arr[i - 1].innerHTML = arr[i].innerHTML;
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-          }
-
-          if (
-            arr[i - 1].style.backgroundColor != "" &&
-            arr[i - 1].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 1].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 1].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-
-        if (secondRightColumn.includes(i)) {
-          if (
-            arr[i - 1].style.backgroundColor == "" &&
-            arr[i - 2].style.backgroundColor == ""
-          ) {
-            arr[i - 2].style.backgroundColor = arr[i].style.backgroundColor;
-            arr[i - 2].innerHTML = arr[i].innerHTML;
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-          } else if (
-            arr[i - 1].style.backgroundColor == "" &&
-            arr[i - 2].style.backgroundColor != "" &&
-            arr[i - 2].innerHTML != arr[i].innerHTML
-          ) {
-            arr[i - 1].style.backgroundColor = arr[i].style.backgroundColor;
-            arr[i - 1].innerHTML = arr[i].innerHTML;
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-          }
-
-          if (
-            arr[i - 1].style.backgroundColor == "" &&
-            arr[i - 2].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 2].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 2].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i - 1].style.backgroundColor != "" &&
-            arr[i - 1].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 1].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 1].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-
-        if (veryRightColumn.includes(i)) {
-          if (
-            arr[i - 1].style.backgroundColor == "" &&
-            arr[i - 2].style.backgroundColor == "" &&
-            arr[i - 3].style.backgroundColor == ""
-          ) {
-            arr[i - 3].style.backgroundColor = arr[i].style.backgroundColor;
-            arr[i - 3].innerHTML = arr[i].innerHTML;
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-          } else if (
-            arr[i - 1].style.backgroundColor == "" &&
-            arr[i - 2].style.backgroundColor == "" &&
-            arr[i - 3].style.backgroundColor != "" &&
-            arr[i - 3].innerHTML != arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i - 2].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i - 2].innerHTML = `<p>${tiles[x].number}</p>`;
-          } else if (
-            arr[i - 1].style.backgroundColor == "" &&
-            arr[i - 2].style.backgroundColor != "" &&
-            arr[i - 2].innerHTML != arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i - 1].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i - 1].innerHTML = `<p>${tiles[x].number}</p>`;
-          }
-
-          if (
-            arr[i - 1].style.backgroundColor == "" &&
-            arr[i - 2].style.backgroundColor == "" &&
-            arr[i - 3].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 3].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 3].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i - 1].style.backgroundColor == "" &&
-            arr[i - 2].style.backgroundColor != "" &&
-            arr[i - 2].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 2].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 2].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i - 1].style.backgroundColor != "" &&
-            arr[i - 1].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 1].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 1].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
+        updateCurrentValue(tile.get(nextSquare[randomNo]), newTile)
       }
     }
   }
@@ -520,295 +217,36 @@ function shiftLeft() {
 
 function moveLeft(event) {
   if (isThereAGame()) {
-    if (canItMoveLeft()) {
+    if (canItMove('left')) {
       if (event.code === "KeyA" || event.key === "ArrowLeft") {
-        shiftLeft();
+        shift('left');
 
-        let nextSquare = openSquares(arr);
+        let nextSquare = openSquares();
         let randomNo = Math.floor(Math.random() * nextSquare.length);
-        nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
-        nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+        let newTile = addTile();
+    
+        tile.get(nextSquare[randomNo]).position.style.backgroundColor = `${tileValue.get(newTile).hex}`;
+        tile.get(nextSquare[randomNo]).position.innerHTML = `<p>${tileValue.get(newTile).value}</p>`;
+        updateCurrentValue(tile.get(nextSquare[randomNo]), newTile)
       }
     }
   }
 }
 
-function shiftDown() {
-  for (i = arr.length - 1; i >= 0; i--) {
-    if (arr[i].style.backgroundColor != "") {
-      //If the number in the target tile is "y"
-      if (i != 12 && i != 13 && i != 14 && i != 15) {
-        //Anything but the very right column
-        const veryTopColumn = [0, 1, 2, 3];
-        const secondTopColumn = [4, 5, 6, 7];
-        const secondBottomColumn = [8, 9, 10, 11];
-        const x = numInTile(arr[i].innerHTML);
-
-        if (secondBottomColumn.includes(i)) {
-          if (arr[i + 4].style.backgroundColor == "") {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i + 4].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i + 4].innerHTML = `<p>${tiles[x].number}</p>`;
-          }
-
-          if (
-            arr[i + 4].style.backgroundColor != "" &&
-            arr[i + 4].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 4].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 4].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-
-        if (secondTopColumn.includes(i)) {
-          if (
-            arr[i + 4].style.backgroundColor == "" &&
-            arr[i + 8].style.backgroundColor == ""
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i + 8].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i + 8].innerHTML = `<p>${tiles[x].number}</p>`;
-          } else if (
-            arr[i + 4].style.backgroundColor == "" &&
-            arr[i + 8].style.backgroundColor != "" &&
-            arr[i + 8].innerHTML != arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i + 4].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i + 4].innerHTML = `<p>${tiles[x].number}</p>`;
-          }
-
-          if (
-            arr[i + 4].style.backgroundColor == "" &&
-            arr[i + 8].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 8].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 8].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i + 4].style.backgroundColor != "" &&
-            arr[i + 4].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 4].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 4].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-
-        if (veryTopColumn.includes(i)) {
-          if (
-            arr[i + 4].style.backgroundColor == "" &&
-            arr[i + 8].style.backgroundColor == "" &&
-            arr[i + 12].style.backgroundColor == ""
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i + 12].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i + 12].innerHTML = `<p>${tiles[x].number}</p>`;
-          } else if (
-            arr[i + 4].style.backgroundColor == "" &&
-            arr[i + 8].style.backgroundColor == "" &&
-            arr[i + 12].style.backgroundColor != "" &&
-            arr[i + 12].innerHTML != arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i + 8].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i + 8].innerHTML = `<p>${tiles[x].number}</p>`;
-          } else if (
-            arr[i + 4].style.backgroundColor == "" &&
-            arr[i + 8].style.backgroundColor != "" &&
-            arr[i + 8].innerHTML != arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i + 4].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i + 4].innerHTML = `<p>${tiles[x].number}</p>`;
-          }
-
-          if (
-            arr[i + 4].style.backgroundColor == "" &&
-            arr[i + 8].style.backgroundColor == "" &&
-            arr[i + 12].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 12].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 12].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i + 4].style.backgroundColor == "" &&
-            arr[i + 8].style.backgroundColor != "" &&
-            arr[i + 8].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 8].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 8].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i + 4].style.backgroundColor != "" &&
-            arr[i + 4].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i + 4].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i + 4].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-      }
-    }
-  }
-}
 
 function moveDown(event) {
   if (isThereAGame()) {
-    if (canItMoveDown()) {
+    if (canItMove('down')) {
       if (event.code === "KeyS" || event.key === "ArrowDown") {
-        shiftDown();
+        shift('down');
 
-        let nextSquare = openSquares(arr);
+        let nextSquare = openSquares();
         let randomNo = Math.floor(Math.random() * nextSquare.length);
-        nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
-        nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
-      }
-    }
-  }
-}
-
-function shiftUp() {
-  for (i = 0; i < arr.length; i++) {
-    if (arr[i].style.backgroundColor != "") {
-      //If the number in the target tile is "y"
-      if (i != 0 && i != 1 && i != 2 && i != 3) {
-        //Anything but the very right column
-        const veryBottomColumn = [12, 13, 14, 15];
-        const secondTopColumn = [4, 5, 6, 7];
-        const secondBottomColumn = [8, 9, 10, 11];
-        const x = numInTile(arr[i].innerHTML);
-
-        if (secondTopColumn.includes(i)) {
-          if (arr[i - 4].style.backgroundColor == "") {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i - 4].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i - 4].innerHTML = `<p>${tiles[x].number}</p>`;
-          }
-
-          if (
-            arr[i - 4].style.backgroundColor != "" &&
-            arr[i - 4].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 4].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 4].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-
-        if (secondBottomColumn.includes(i)) {
-          if (
-            arr[i - 4].style.backgroundColor == "" &&
-            arr[i - 8].style.backgroundColor == ""
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i - 8].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i - 8].innerHTML = `<p>${tiles[x].number}</p>`;
-          } else if (
-            arr[i - 4].style.backgroundColor == "" &&
-            arr[i - 8].style.backgroundColor != "" &&
-            arr[i - 8].innerHTML != arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i - 4].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i - 4].innerHTML = `<p>${tiles[x].number}</p>`;
-          }
-
-          if (
-            arr[i - 4].style.backgroundColor == "" &&
-            arr[i - 8].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 8].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 8].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i - 4].style.backgroundColor != "" &&
-            arr[i - 4].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 4].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 4].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
-
-        if (veryBottomColumn.includes(i)) {
-          if (
-            arr[i - 4].style.backgroundColor == "" &&
-            arr[i - 8].style.backgroundColor == "" &&
-            arr[i - 12].style.backgroundColor == ""
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i - 12].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i - 12].innerHTML = `<p>${tiles[x].number}</p>`;
-          } else if (
-            arr[i - 4].style.backgroundColor == "" &&
-            arr[i - 8].style.backgroundColor == "" &&
-            arr[i - 12].style.backgroundColor != "" &&
-            arr[i - 12].innerHTML != arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i - 8].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i - 8].innerHTML = `<p>${tiles[x].number}</p>`;
-          } else if (
-            arr[i - 4].style.backgroundColor == "" &&
-            arr[i - 8].style.backgroundColor != "" &&
-            arr[i - 8].innerHTML != arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = ``;
-            arr[i].innerHTML = ``;
-            arr[i - 4].style.backgroundColor = `${tiles[x].hex}`;
-            arr[i - 4].innerHTML = `<p>${tiles[x].number}</p>`;
-          }
-
-          if (
-            arr[i - 4].style.backgroundColor == "" &&
-            arr[i - 8].style.backgroundColor == "" &&
-            arr[i - 12].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 12].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 12].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i - 4].style.backgroundColor == "" &&
-            arr[i - 8].style.backgroundColor != "" &&
-            arr[i - 8].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 8].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 8].style.backgroundColor = `${tiles[x + 1].hex}`;
-          } else if (
-            arr[i - 4].style.backgroundColor != "" &&
-            arr[i - 4].innerHTML == arr[i].innerHTML
-          ) {
-            arr[i].style.backgroundColor = "";
-            arr[i].innerHTML = "";
-            arr[i - 4].innerHTML = `<p>${tiles[x + 1].number}</p>`;
-            arr[i - 4].style.backgroundColor = `${tiles[x + 1].hex}`;
-          }
-        }
+        let newTile = addTile();
+    
+        tile.get(nextSquare[randomNo]).position.style.backgroundColor = `${tileValue.get(newTile).hex}`;
+        tile.get(nextSquare[randomNo]).position.innerHTML = `<p>${tileValue.get(newTile).value}</p>`;
+        updateCurrentValue(tile.get(nextSquare[randomNo]), newTile)
       }
     }
   }
@@ -816,14 +254,17 @@ function shiftUp() {
 
 function moveUp(event) {
   if (isThereAGame()) {
-    if (canItMoveUp()) {
+    if (canItMove('up')) {
       if (event.code === "KeyW" || event.key === "ArrowUp") {
-        shiftUp();
+        shift('up');
 
-        let nextSquare = openSquares(arr);
+        let nextSquare = openSquares();
         let randomNo = Math.floor(Math.random() * nextSquare.length);
-        nextSquare[randomNo].style.backgroundColor = `${tiles[0].hex}`;
-        nextSquare[randomNo].innerHTML = `<p>${tiles[0].number}</p>`;
+        let newTile = addTile();
+    
+        tile.get(nextSquare[randomNo]).position.style.backgroundColor = `${tileValue.get(newTile).hex}`;
+        tile.get(nextSquare[randomNo]).position.innerHTML = `<p>${tileValue.get(newTile).value}</p>`;
+        updateCurrentValue(tile.get(nextSquare[randomNo]), newTile)
       }
     }
   }
