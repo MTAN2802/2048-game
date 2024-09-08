@@ -144,6 +144,15 @@ function canItMove(direction, startingLine, nextTile, nextLine, endingLine) {
   return false;
 }
 
+function tileToMove(currentLineTiles){
+  if (!isEmpty(currentLineTiles[i])){
+    tileToMerge = 0
+    while(!isEmpty(currentLineTiles[tileToMerge]) && !matchingTiles(currentLineTiles[i], currentLineTiles[tileToMerge]) && tileToMerge < i){
+      tileToMerge++;}
+  }
+  console.log(tileToMerge)
+}
+
 function shift(direction, iterator, currentLineTiles){
   switch(direction){
     case 'right':
@@ -168,28 +177,33 @@ function shift(direction, iterator, currentLineTiles){
   while(line <= 4){
     for (i=1; i <=3; i++){
       if (!isEmpty(currentLineTiles[i])){
-        let tileToMerge = 0;
-        while(!isEmpty(currentLineTiles[tileToMerge]) && !matchingTiles(currentLineTiles[i], currentLineTiles[tileToMerge])){
-          tileToMerge++;
+        tileToMerge = i;
+        while(isEmpty(currentLineTiles[tileToMerge-1]) && tileToMerge-1 >= 0){
+          tileToMerge--
+        if(tileToMerge === 0){
+          break;
+          }
         }
-        if(isEmpty(currentLineTiles[tileToMerge])){
-          tile.get(currentLineTiles[tileToMerge]).position.style.backgroundColor = tile.get(currentLineTiles[i]).position.style.backgroundColor;
-          tile.get(currentLineTiles[tileToMerge]).position.innerHTML = tile.get(currentLineTiles[i]).position.innerHTML;
-          updateCurrentValue(tile.get(currentLineTiles[tileToMerge]), tile.get(currentLineTiles[i]).currentValue)
+
+        if(tileToMerge !== 0 && matchingTiles(currentLineTiles[i], currentLineTiles[tileToMerge-1])){
+          tile.get(currentLineTiles[tileToMerge-1]).position.style.backgroundColor = tileValue.get((tile.get(currentLineTiles[i]).currentValue * 2)).hex
+          tile.get(currentLineTiles[tileToMerge-1]).position.innerHTML = `<p>${tileValue.get((tile.get(currentLineTiles[i]).currentValue * 2)).value}</p>`;
+          updateCurrentValue(tile.get(currentLineTiles[tileToMerge - 1]), tile.get(currentLineTiles[i]).currentValue * 2)
 
           tile.get(currentLineTiles[i]).position.style.backgroundColor = "";
           tile.get(currentLineTiles[i]).position.innerHTML = "";
           updateCurrentValue(tile.get(currentLineTiles[i]), 0);
           }
-        if(i !== tileToMerge && matchingTiles(currentLineTiles[i], currentLineTiles[tileToMerge])){
-          tile.get(currentLineTiles[tileToMerge]).position.style.backgroundColor = tileValue.get((tile.get(currentLineTiles[i]).currentValue * 2)).hex
-          tile.get(currentLineTiles[tileToMerge]).position.innerHTML = `<p>${tileValue.get((tile.get(currentLineTiles[i]).currentValue * 2)).value}</p>`;
-          updateCurrentValue(tile.get(currentLineTiles[tileToMerge]), tile.get(currentLineTiles[i]).currentValue * 2)
 
-          tile.get(currentLineTiles[i]).position.style.backgroundColor = "";
-          tile.get(currentLineTiles[i]).position.innerHTML = "";
-          updateCurrentValue(tile.get(currentLineTiles[i]), 0);
-          }
+          else if (i !== tileToMerge) {
+            tile.get(currentLineTiles[tileToMerge]).position.style.backgroundColor = tile.get(currentLineTiles[i]).position.style.backgroundColor;
+            tile.get(currentLineTiles[tileToMerge]).position.innerHTML = tile.get(currentLineTiles[i]).position.innerHTML;
+            updateCurrentValue(tile.get(currentLineTiles[tileToMerge]), tile.get(currentLineTiles[i]).currentValue)
+  
+            tile.get(currentLineTiles[i]).position.style.backgroundColor = "";
+            tile.get(currentLineTiles[i]).position.innerHTML = "";
+            updateCurrentValue(tile.get(currentLineTiles[i]), 0);
+            }
       }
     }
     currentLineTiles = currentLineTiles.map((val) => val + iterator);
